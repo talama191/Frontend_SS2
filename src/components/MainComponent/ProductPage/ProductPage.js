@@ -1,28 +1,6 @@
-import ProductList from "./ProductList";
-function Shop() {
-    // const products = [
-    //     {
-    //         id: 1,
-    //         imgSrc: "assets/images/items/10.webp",
-    //         name: "T-shirts with multiple colors, for men and lady",
-    //         price: 99,
+import ProductList from "./ProductList/ProductList";
 
-    //     },
-    //     {
-    //         id: 2,
-    //         imgSrc: "assets/images/items/11.webp",
-    //         name: "Winter Jacket for Men and Women, All sizes",
-    //         price: 120,
-
-    //     },
-    //     {
-    //         id: 3,
-    //         imgSrc: "assets/images/items/12.webp",
-    //         name: "T-shirts with multiple colors, for men and lady",
-    //         price: 120,
-
-    //     },
-    // ];
+function ProductPage(){
     return (
         <div className="home-section">
 
@@ -255,4 +233,4 @@ function Shop() {
 
     );
 }
-export default Shop;
+export default ProductPage;

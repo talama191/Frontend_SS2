@@ -1,11 +1,11 @@
-import Header from './components/HeaderComp/Header/Header';
-import Footer from './components/FooterComponents/Footer/Footer';
-import Shop from './Shop'
+import Header from './components/HeaderComponent/Header/Header';
+import Footer from './components/FooterComponent/Footer/Footer';
+import Main from './components/MainComponent/Main'
 function App() {
   return (
     <div className="App">
       <Header></Header>
-      <Shop></Shop>
+      <Main></Main>
       <Footer></Footer>
     </div>
   );
