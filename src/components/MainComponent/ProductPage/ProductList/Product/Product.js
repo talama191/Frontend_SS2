@@ -3,10 +3,10 @@ import ProductService from "../../../../../service/ProductService";
 
 function Product(props) {
 
-    
+
     return (
 
-        <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-6 col-sm-6">
             <figure class="card card-product-grid">
                 <div class="img-wrap">
                     <img src={props.imgSrc} />
