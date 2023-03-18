@@ -1,14 +1,12 @@
 import ProductList from "./ProductPage/ProductList/ProductList";
 import ProductPage from "./ProductPage/ProductPage";
-import HomePage from "./HomePage/HomePage";
-import Carousel from "./HomePage/Carousel/Carousel";
-import ShoppingCart from "./ShoppingCart/ShoppingCart";
+import ProductDetailPage from "./ProductDetailPage/ProductDetailPage";
+import Login from '../login/login'
 function Main() {
     return (
         <div>
-            <ShoppingCart></ShoppingCart>
+            <Login></Login>
         </div>
     );
 }
-//asduihw
 export default Main;
