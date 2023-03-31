@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import HeaderButton from "../UI/Buttons/HeaderButton";
 import Brand from "../UI/Logo/Brand";
 import SearchForm from "../UI/SearchForm/SearchForm";
@@ -11,7 +12,7 @@ function HeaderMain() {
                         <div class="float-end">
                             <HeaderButton name="Sign in" logo="fa fa-user" />
                             <HeaderButton name="Favorites" logo="fa fa-heart" />
-                            <HeaderButton name="My Cart" logo="fa fa-shopping-cart" />
+                            <Link to='/cart'> <HeaderButton name="My Cart" logo="fa fa-shopping-cart" /></Link>
                         </div>
                     </div>
                     <SearchForm />

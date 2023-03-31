@@ -9,7 +9,7 @@ function Product(props) {
         <div class="col-lg-3 col-md-6 col-sm-6">
             <figure class="card card-product-grid">
                 <div class="img-wrap">
-                    <img src={props.imgSrc} />
+                    <img style={{ width: `100%` }} src={props.img1} />
                 </div>
                 <figcaption class="info-wrap border-top">
                     <div class="price-wrap">

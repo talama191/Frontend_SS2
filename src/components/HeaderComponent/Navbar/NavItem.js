@@ -1,16 +1,19 @@
+import { Link } from "react-router-dom";
+
 function NavItem({ label, href, dropdown = false, dropdownItems = [] }) {
+    const link = href;
     if (dropdown) {
         return (
             <li className="nav-item dropdown">
-                <a className="dropdown-toggle nav-link" href="#" data-bs-toggle="dropdown">
+                <Link className="dropdown-toggle nav-link" href="#" data-bs-toggle="dropdown">
                     {label}
-                </a>
+                </Link>
                 <ul className="dropdown-menu">
                     {dropdownItems.map((item, index) => (
                         <li key={index}>
-                            <a className="dropdown-item" href={item.href}>
+                            <Link className="dropdown-item" to="/">
                                 {item.label}
-                            </a>
+                            </Link>
                         </li>
                     ))}
                 </ul>
@@ -19,9 +22,9 @@ function NavItem({ label, href, dropdown = false, dropdownItems = [] }) {
     } else {
         return (
             <li className="nav-item">
-                <a className="nav-link" href={href}>
+                <Link className="nav-link" to={link}>
                     {label}
-                </a>
+                </Link>
             </li>
         );
     }
