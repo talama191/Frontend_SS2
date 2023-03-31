@@ -1,8 +1,7 @@
 import ProductList from "./ProductPage/ProductList/ProductList";
 import ProductPage from "./ProductPage/ProductPage";
-import HomePage from "./HomePage/HomePage";
-import Carousel from "./HomePage/Carousel/Carousel";
-import ShoppingCart from "./ShoppingCart/ShoppingCart";
+import ProductDetailPage from "./ProductDetailPage/ProductDetailPage";
+import Login from '../login/login'
 import { Route, Routes } from "react-router-dom";
 function Main() {
     return (
