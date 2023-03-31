@@ -8,11 +8,11 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <SignInOutContainer />
+      {/* <SignInOutContainer /> */}
       {/* <Login></Login> */}
-      {/* <Header></Header>
+      <Header></Header>
       <Main></Main>
-      <Footer></Footer>  */}
+      <Footer></Footer> 
     </div>
   );
 }

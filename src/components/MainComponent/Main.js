@@ -5,7 +5,7 @@ import Login from '../login/login'
 function Main() {
     return (
         <div>
-            <Login></Login>
+            <ProductDetailPage></ProductDetailPage>
         </div>
     );
 }
