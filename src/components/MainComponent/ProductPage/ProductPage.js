@@ -1,6 +1,25 @@
 import ProductList from "./ProductList/ProductList";
 
-function ProductPage(){
+import 'rc-slider/assets/index.css';
+import { useState } from "react";
+
+
+function ProductPage() {
+    const [sortOption, setSortOption] = useState('default');
+    let sortedProducts = [];
+    const handleSortChange = (event) => {
+        setSortOption(event.target.value);
+    };
+    const sortProducts = (products) => {
+        switch (sortOption) {
+            case 'low-to-high':
+                return sortedProducts = products.slice().sort((a, b) => a.price - b.price);
+            case 'high-to-low':
+                return sortedProducts = products.slice().sort((a, b) => b.price - a.price);
+            default:
+                return sortedProducts = products;
+        }
+    };
     return (
         <div className="home-section">
 
@@ -38,14 +57,10 @@ function ProductPage(){
                                     <div class="collapse show" id="collapse_aside1">
                                         <div class="card-body">
                                             <ul class="list-menu">
-                                                <li><a href="#">Electronics </a></li>
-                                                <li><a href="#">Accessories  </a></li>
-                                                <li><a href="#">Home items </a></li>
-                                                <li><a href="#">Men's clothing </a></li>
-                                                <li><a href="#">Interior items </a></li>
-                                                <li><a href="#">Magazines </a></li>
-                                                <li><a href="#">Category name </a></li>
-                                                <li><a href="#">Home items </a></li>
+                                                <li><a href="#">Men's clothes </a></li>
+                                                <li><a href="#">Women's clothes  </a></li>
+                                                <li><a href="#">Acessories </a></li>
+
                                             </ul>
                                         </div>
                                     </div>
@@ -165,11 +180,10 @@ function ProductPage(){
                             <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
                                 <strong class="d-block py-2">32 Items found </strong>
                                 <div class="ms-auto ">
-                                    <select class="form-select d-inline-block w-auto me-1">
-                                        <option value="0">Best match</option>
-                                        <option value="1">Recommended</option>
-                                        <option value="2">High rated</option>
-                                        <option value="3">Randomly</option>
+                                    <select class="form-select d-inline-block w-auto me-1" value={sortOption} onChange={handleSortChange}>
+                                        <option value="default">Default</option>
+                                        <option value="low-to-high">Ascending</option>
+                                        <option value="high-to-low">Descending</option>
                                     </select>
                                     <div class="btn-group">
                                         <a href="#" class="btn btn-light" data-bs-toggle="tooltip" title="List view">
@@ -184,7 +198,7 @@ function ProductPage(){
 
 
                             <div class="row">
-                                <ProductList />
+                                <ProductList sortProducts={sortProducts} />
 
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <figure class="card card-product-grid">

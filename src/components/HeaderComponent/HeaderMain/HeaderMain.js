@@ -10,7 +10,7 @@ function HeaderMain() {
                     <Brand />
                     <div class="order-lg-last col-lg-5 col-sm-8 col-8">
                         <div class="float-end">
-                            <HeaderButton name="Sign in" logo="fa fa-user" />
+                            <Link to='/login'><HeaderButton name="Sign in" logo="fa fa-user" /></Link>
                             <HeaderButton name="Favorites" logo="fa fa-heart" />
                             <Link to='/cart'> <HeaderButton name="My Cart" logo="fa fa-shopping-cart" /></Link>
                         </div>

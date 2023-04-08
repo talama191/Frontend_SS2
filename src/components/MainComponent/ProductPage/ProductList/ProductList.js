@@ -1,9 +1,8 @@
 import Product from "./Product/Product";
 import React, { useState, useEffect } from 'react';
-function ProductList() {
+function ProductList({ sortProducts }) {
 
     const [products, setProducts] = useState([]);
-
     useEffect(() => {
         fetch('http://localhost:8080/Products')
             .then(response => response.json())
@@ -14,10 +13,11 @@ function ProductList() {
                 console.error(error);
             });
     }, []);
-    console.log(products)
+    const sortedProducts = sortProducts(products);
+
     return (
         <div className="row">
-            {products.map((product) => (
+            {sortedProducts.map((product) => (
                 <Product key={product.id} {...product} />
             ))}
         </div>
