@@ -2,11 +2,29 @@ import ProductList from "./ProductList/ProductList";
 
 import 'rc-slider/assets/index.css';
 import { useState } from "react";
+import PriceRange from "../Slider/PriceRange/PriceRange";
 
 
 function ProductPage() {
     const [sortOption, setSortOption] = useState('default');
     let sortedProducts = [];
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(100);
+    const [filterApplied, setFilterApplied] = useState(false);
+
+    const handleFilterClick = () => {
+        setFilterApplied(true);
+
+    };
+    const handlePriceRangeChange = (minPrice, maxPrice) => {
+        setMinPrice(minPrice);
+        setMaxPrice(maxPrice);
+    };
+    const resetFilter = () => {
+        setMinPrice(0);
+        setMaxPrice(100);
+        setFilterApplied(false);
+    };
     const handleSortChange = (event) => {
         setSortOption(event.target.value);
     };
@@ -60,7 +78,6 @@ function ProductPage() {
                                                 <li><a href="#">Men's clothes </a></li>
                                                 <li><a href="#">Women's clothes  </a></li>
                                                 <li><a href="#">Acessories </a></li>
-
                                             </ul>
                                         </div>
                                     </div>
@@ -120,20 +137,10 @@ function ProductPage() {
                                         </a>
                                     </header>
                                     <div class="collapse show" id="collapse_aside2">
-                                        <div class="card-body">
-                                            <input type="range" class="form-range" min="0" max="100" />
-                                            <div class="row mb-3">
-                                                <div class="col-6">
-                                                    <label for="min" class="form-label">Min</label>
-                                                    <input class="form-control" id="min" placeholder="$0" type="number" />
-                                                </div>
-
-                                                <div class="col-6">
-                                                    <label for="max" class="form-label">Max</label>
-                                                    <input class="form-control" id="max" placeholder="$1,0000" type="number" />
-                                                </div>
-                                            </div>
-                                            <button class="btn btn-light w-100" type="button">Apply</button>
+                                        <div>
+                                            <PriceRange onPriceRangeChange={handlePriceRangeChange}></PriceRange>
+                                            <button className="btn w-100" type="button" onClick={resetFilter}>Reset</button>
+                                            <button class="btn w-100" type="button" onClick={handleFilterClick} >Apply</button>
                                         </div>
                                     </div>
                                 </article>
@@ -180,7 +187,7 @@ function ProductPage() {
                             <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
                                 <strong class="d-block py-2">32 Items found </strong>
                                 <div class="ms-auto ">
-                                    <select class="form-select d-inline-block w-auto me-1" value={sortOption} onChange={handleSortChange}>
+                                    <select class="form-select d-inline-block w-auto me-1" value={sortOption} onChange={handleSortChange} >
                                         <option value="default">Default</option>
                                         <option value="low-to-high">Ascending</option>
                                         <option value="high-to-low">Descending</option>
@@ -198,24 +205,10 @@ function ProductPage() {
 
 
                             <div class="row">
-                                <ProductList sortProducts={sortProducts} />
+                                <ProductList sortProducts={sortProducts} minPrice={minPrice} maxPrice={maxPrice} filterApplied={filterApplied} />
 
-                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                    <figure class="card card-product-grid">
-                                        <div class="img-wrap">
-                                            <img src="assets/images/items/9.webp" />
-                                        </div>
-                                        <figcaption class="info-wrap border-top">
-                                            <div class="price-wrap">
-                                                <strong class="price">$43.50</strong>
-                                            </div>
-                                            <p class="title mb-2">Summer New Men's Denim Jeans Shorts </p>
 
-                                            <a href="#" class="btn btn-primary">Add to cart</a>
-                                            <a href="#" class="btn btn-light btn-icon"> <i class="fa fa-heart"></i> </a>
-                                        </figcaption>
-                                    </figure>
-                                </div>
+
                             </div>
 
                             <hr />

@@ -112,7 +112,7 @@ function ShoppingCart() {
                     <header class="mb-4">
                         <h3>Recommended items</h3>
                     </header>
-                    <ProductList></ProductList>
+
                 </div>
             </section>
         </div>)

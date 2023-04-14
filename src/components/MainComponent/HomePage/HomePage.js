@@ -67,7 +67,7 @@ function HomePage() {
                     <header class="mb-4">
                         <h3>New products</h3>
                     </header>
-                    <ProductList></ProductList>
+                    //productlist
                 </div>
             </section>
             <section>
@@ -94,7 +94,7 @@ function HomePage() {
                     <header class="mb-4">
                         <h3>Recommended</h3>
                     </header>
-                    <ProductList></ProductList>
+                    //productlist
                 </div>
 
             </section>
