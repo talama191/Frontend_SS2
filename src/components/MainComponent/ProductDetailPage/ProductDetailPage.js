@@ -8,10 +8,10 @@ function ProductDetailPage() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8080/Products')
+        fetch('http://localhost:8080/products')
             .then(response => response.json())
             .then(data => {
-                setProducts(data);
+                setProducts(data.data);
             })
             .catch(error => {
                 console.error(error);
