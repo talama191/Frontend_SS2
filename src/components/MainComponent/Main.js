@@ -9,15 +9,7 @@ import ProductDetailPage from "./ProductDetailPage/ProductDetailPage";
 function Main() {
     return (
         <div>
-            <Routes>
-                <Route path="/" element={<HomePage />}></Route>
-                <Route path="/shop" element={<ProductPage />}></Route>
-                <Route path="/cart" element={<ShoppingCart></ShoppingCart>}></Route>
-                <Route path="/login" element={<Login></Login>}></Route>
-                <Route path="/signup" element={<Signup></Signup>}></Route>
-                <Route path="/product/:id" Component={ProductDetailPage} element={<ProductDetailPage></ProductDetailPage>}></Route>
 
-            </Routes>
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import { Avatar, Grid, Paper, Typography, TextField, Button, Checkbox, setRef } from "@material-ui/core";
-import React from "react";
+import React, { useState } from 'react';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -17,7 +17,7 @@ const Signup = () => {
     const avatarStyle = { backgroundColor: '#00BCD4' }
     const marginTop = { marginTop: 10 }
     const initialValues = {
-        name: '',
+        username: '',
         email: '',
         gender: '',
         phoneNumber: '',
@@ -26,22 +26,33 @@ const Signup = () => {
         termsAndConditions: false
     }
     const validationSchema = Yup.object().shape({
-        name: Yup.string().min(3, "It' s too short").required("Required"),
+        username: Yup.string().min(3, "It' s too short").required("Required"),
         email: Yup.string().email("Enter valid email").required("Required"),
-        gender: Yup.string().oneOf(["male", "female"], "Required").required('Required'),
+        gender: Yup.string().oneOf(["1", "0"], "Required").required('Required'),
         phoneNumber: Yup.number().typeError("Enter valid Phone number").required('Required'),
         password: Yup.string().min(8, "Password minimum length should be 8").required('Required'),
         confirmPassword: Yup.string().oneOf([Yup.ref('password')], "Password not matched").required("Required"),
         termsAndConditions: Yup.string().oneOf(["true"], "Accept terms & conditions")
     })
-    const onSubmit = (values, props) => {
-        console.log(values)
-        console.log(props)
-        setTimeout(()=>{
+    const onSubmit = async (values, props) => {
+        console.log(values);
+        console.log(props);
+        const response = await fetch('http://localhost:8080/user-register/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(values)
+        });
+
+        const data = await response.json();
+        console.log(data.status_code);
+        (data.status_code === 409) ? alert('failed') : alert('successfully')
+        setTimeout(() => {
 
             props.resetForm()
             props.setSubmitting(false)
-        },2000)
+        }, 2000)
     }
     return (
         <Grid>
@@ -56,7 +67,7 @@ const Signup = () => {
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                     {(props) => (
                         <Form>
-                            <Field as={TextField} fullWidth name="name" label='Name' placeholder="Enter your name" helperText={<ErrorMessage name="name" />} />
+                            <Field as={TextField} fullWidth name="username" label='Username' placeholder="Enter your username" helperText={<ErrorMessage name="username" />} />
                             <Field as={TextField} fullWidth name='email' label='Email' placeholder="Enter your email" helperText={<ErrorMessage name="email" />} />
                             <FormControl style={marginTop}>
                                 <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
@@ -67,8 +78,8 @@ const Signup = () => {
                                     name='gender'
                                     style={{ display: 'initial' }}
                                 >
-                                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                                    <FormControlLabel value="male" control={<Radio />} label="Male" />
+                                    <FormControlLabel value="0" control={<Radio />} label="Female" />
+                                    <FormControlLabel value="1" control={<Radio />} label="Male" />
                                 </Field >
                             </FormControl>
                             <FormHelperText><ErrorMessage name='gender' /></FormHelperText>
@@ -80,7 +91,7 @@ const Signup = () => {
                                 helperText={<ErrorMessage name="confirmPassword" />} />
                             <FormControlLabel control={<Field as={Checkbox} name="termsAndConditions" />} label="I accept the terms and conditions. " />
                             <FormHelperText><ErrorMessage name="termsAndConditions" /></FormHelperText>
-                            <Button type='submit' variant="contained" disabled={props.isSubmitting} color='primary'>{props.isSubmitting?"Loading":"Sign up" }</Button>
+                            <Button type='submit' variant="contained" disabled={props.isSubmitting} color='primary'>{props.isSubmitting ? "Loading" : "Sign up"}</Button>
                         </Form>
                     )}
                 </Formik>
