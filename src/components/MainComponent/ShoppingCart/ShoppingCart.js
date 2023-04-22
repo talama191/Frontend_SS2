@@ -1,24 +1,33 @@
 import ProductList from "../ProductPage/ProductList/ProductList";
 import CartItem from "./CartItem";
 import { useState } from "react";
+import useStore from "../../../context/cartStore";
+import useCart from "../../../custom/useCart";
 function ShoppingCart() {
 
+    const [products, setProducts] = useState(useStore((state) => state.products));
 
-    const [products, setProducts] = useState([
-        {
-            id: 1, imgSrc: "assets/images/items/10.webp",
-            name: "T-shirts with multiple colors, for men and lady", type: ["yellow", "XL"], quantity: 4, price: '19.99', totalPrice: 0
-        },
-        {
-            id: 2, imgSrc: "assets/images/items/10.webp",
-            name: "T-shirts with multiple colors, for men and lady", type: ["yellow", "XL"], quantity: 1, price: '6.99', totalPrice: 0
-        },
-        {
-            id: 3, imgSrc: "assets/images/items/10.webp",
-            name: "T-shirts with multiple colors, for men and lady", type: ["yellow", "XL"], quantity: 3, price: '16.29', totalPrice: 0
-        },
-    ]);
+
+
+    // const [products, setProducts] = useState([
+    //     {
+    //         id: 1, imgSrc: "assets/images/items/10.webp",
+    //         name: "T-shirts with multiple colors, for men and lady", type: ["yellow", "XL"], quantity: 4, price: '19.99', totalPrice: 0
+    //     },
+    //     {
+    //         id: 2, imgSrc: "assets/images/items/10.webp",
+    //         name: "T-shirts with multiple colors, for men and lady", type: ["yellow", "XL"], quantity: 1, price: '6.99', totalPrice: 0
+    //     },
+    //     {
+    //         id: 3, imgSrc: "assets/images/items/10.webp",
+    //         name: "T-shirts with multiple colors, for men and lady", type: ["yellow", "XL"], quantity: 3, price: '16.29', totalPrice: 0
+    //     },
+    // ]);
+    const removeFromCart = useStore(state => state.removeFromCart);
+
     function handleQuantityChange(productId, newQuantity) {
+        console.log('asda');
+
         setProducts(products => {
             return products.map(product => {
                 if (product.id === productId) {
@@ -27,7 +36,14 @@ function ShoppingCart() {
                 return product;
             });
         });
+
     }
+    const handleCartChange = (productId) => {
+        removeFromCart(productId);
+        setProducts((products) => {
+            return products.filter((product) => product.id !== productId);
+        });
+    };
     function handlePriceChange(productId, newPrice) {
         setProducts(products => {
             return products.map(product => {
@@ -56,6 +72,7 @@ function ShoppingCart() {
                                             {...product}
                                             onQuantityChange={handleQuantityChange}
                                             onPriceChange={handlePriceChange}
+                                            onRemove={handleCartChange}
                                         />
                                     ))}
                                 </div>

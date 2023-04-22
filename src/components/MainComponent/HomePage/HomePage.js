@@ -94,7 +94,6 @@ function HomePage() {
                     <header class="mb-4">
                         <h3>Recommended</h3>
                     </header>
-                    //productlist
                 </div>
 
             </section>

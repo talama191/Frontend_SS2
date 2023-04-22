@@ -1,21 +1,25 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import useStore from "../../../context/cartStore";
 function CartItem(props) {
     const [selectedQuantity, setSelectedQuantity] = useState(props.quantity);
     const [totalPrice, setTotalPrice] = useState((selectedQuantity * Number(props.price)).toFixed(2));
     const type = props.type.join(", ");
     function handleQuantityChange(event) {
         const quantity = event.target.value;
+        updateQuantity(props.id, quantity);
         setSelectedQuantity(quantity);
     }
-
+    const updateQuantity = useStore(state => state.setItemQuantity);
     useEffect(() => {
         const pricePerItem = Number(props.price);
         const totalPrice = (selectedQuantity * pricePerItem).toFixed(2);
         setTotalPrice(totalPrice);
         props.onPriceChange(props.id, Number(totalPrice));
     }, [selectedQuantity, props.price]);
-
+    function handleRemoveItem() {
+        props.onRemove(props.id);
+    };
     return (
         <div class="row gy-3 mb-4">
             <div class="col-lg-5">
@@ -44,6 +48,7 @@ function CartItem(props) {
                         <option>2</option>
                         <option>3</option>
                         <option>4</option>
+                        <option>5</option>
                     </select>
                 </div>
                 <div class="">
@@ -62,12 +67,9 @@ function CartItem(props) {
                         class="btn btn-light border px-2 icon-hover-primary"
                     ><i class="fas fa-heart fa-lg px-1 text-secondary"></i
                     ></a>
-                    <a
-                        href="#"
-                        class="btn btn-light border text-danger icon-hover-danger"
-                    >
-                        Remove</a
-                    >
+
+
+                    <button class="btn btn-light border text-danger icon-hover-danger" onClick={handleRemoveItem}>Remove</button>
                 </div>
             </div>
         </div>
