@@ -1,25 +1,35 @@
+
+import { Link, NavLink, useParams } from "react-router-dom";
+import { GetProducts, GetTotalPageForSearch, SearchProduct } from "../../../../service/Services";
 import Product from "./Product/Product";
 import React, { useState, useEffect } from 'react';
+import { SearchFilter } from "../../../../models/SearchFilter";
 
-function ProductList({ sortProducts, filterApplied, minPrice, maxPrice }) {
+function ProductList({ sortProducts, perPage, pageNum, filterApplied, minPrice, maxPrice }) {
     const [products, setProducts] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [productsPerPage, setProductsPerPage] = useState(6);
-
+    const [currentPage, setCurrentPage] = useState(pageNum);
+    const [productsPerPage, setProductsPerPage] = useState(perPage);
+    const [totalPage, setTotalPage] = useState(1);
+    var currentProducts;
+    var totalPages = 1;
     useEffect(() => {
-        async function fetchProducts() {
-            try {
-                const response = await fetch('http://localhost:8080/products');
-                const data = await response.json();
-                setProducts(data.data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        fetchProducts();
+        
     }, []);
-
+    async function searchProducts() {
+        let filter = new SearchFilter("", perPage, pageNum - 1);
+        filter.sortType = "asc";
+        filter.sortField = "price";
+        try {
+            const result = await SearchProduct(filter);
+            const totalPageResult = await GetTotalPageForSearch(filter);
+            setProducts(result.response.data)
+            setTotalPage(totalPageResult.response.data);
+            setCurrentPage(pageNum);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    searchProducts();
     // Filter and sort products
     let filteredProducts = products;
     if (filterApplied) {
@@ -27,15 +37,11 @@ function ProductList({ sortProducts, filterApplied, minPrice, maxPrice }) {
             (product) => product.price >= minPrice && product.price <= maxPrice
         );
     }
-    const sortedProducts = sortProducts(filteredProducts);
 
-    // Pagination
-    const indexOfLastProduct = currentPage * productsPerPage;
-    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = sortedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-    const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
+    console.log(pageNum);
+    currentProducts = products;
+    totalPages = totalPage;
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
         <>
@@ -47,10 +53,13 @@ function ProductList({ sortProducts, filterApplied, minPrice, maxPrice }) {
             <nav>
                 <ul className="pagination justify-content-center">
                     {Array.from({ length: totalPages }, (_, i) => (
-                        <li key={i} className={`page-item ${i + 1 === currentPage ? 'active' : ''}`}>
-                            <button onClick={() => paginate(i + 1)} className="page-link">
-                                {i + 1}
-                            </button>
+                        <li key={i} className={`page-item ${i + 1 === parseInt(currentPage) ? 'active' : ''}`}>
+                            <NavLink to={`/products/${i + 1}/${perPage}`}>
+                                <button className="page-link" >
+                                    {i + 1}
+                                </button>
+                            </NavLink>
+
                         </li>
                     ))}
                 </ul>

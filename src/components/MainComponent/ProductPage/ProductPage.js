@@ -1,11 +1,13 @@
 import ProductList from "./ProductList/ProductList";
 
 import 'rc-slider/assets/index.css';
-import { useState } from "react";
+import React, { useState } from "react";
 import PriceRange from "../Slider/PriceRange/PriceRange";
+import { useParams } from "react-router-dom";
 
 
 function ProductPage() {
+    const { page,perPage,pageNum } = useParams();
     const [sortOption, setSortOption] = useState('default');
     let sortedProducts = [];
     const [minPrice, setMinPrice] = useState(0);
@@ -205,7 +207,7 @@ function ProductPage() {
 
 
                             <div class="row">
-                                <ProductList sortProducts={sortProducts} minPrice={minPrice} maxPrice={maxPrice} filterApplied={filterApplied} />
+                                <ProductList sortProducts={sortProducts} minPrice={minPrice} perPage={perPage} pageNum={page} maxPrice={maxPrice} filterApplied={filterApplied} />
 
 
 

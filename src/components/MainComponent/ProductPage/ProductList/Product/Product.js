@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import ProductService from "../../../../../service/ProductService";
 import useStore from "../../../../../context/cartStore";
 
 function Product(props) {
@@ -26,7 +25,6 @@ function Product(props) {
                 <figcaption class="info-wrap border-top">
                     <div class="price-wrap">
                         <strong class="price">${props.price}</strong>
-                        <del class="price-old">${props.price - 15}</del>
                     </div>
                     <Link to={`/product/${props.id}`} class="title mb-2">
                         {props.name}

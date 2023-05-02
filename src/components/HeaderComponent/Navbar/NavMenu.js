@@ -3,7 +3,7 @@ import NavItem from './NavItem';
 
 function NavMenu() {
     const navItems = [
-        { label: 'Categories', href: 'shop' },
+        { label: 'Categories', href: 'products/' },
         { label: 'Hot offers', href: '#' },
         { label: 'Gift boxes', href: '#' },
         { label: 'Projects', href: '#' },

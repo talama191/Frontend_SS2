@@ -7,7 +7,6 @@ import { useState } from 'react';
 import HomePage from './components/MainComponent/HomePage/HomePage';
 import Signup from './components/signup/signup';
 import ProductPage from './components/MainComponent/ProductPage/ProductPage';
-import SignInOutContainer from './components/containers';
 import ProductDetailPage from './components/MainComponent/ProductDetailPage/ProductDetailPage';
 
 import ShoppingCart from './components/MainComponent/ShoppingCart/ShoppingCart';
@@ -17,6 +16,7 @@ import { CartContext } from './context/cartContext';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [p, setP] = useState('')
+  
   return (
     <div className="App">
 
@@ -25,8 +25,9 @@ function App() {
       <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
       <Routes>
         <Route path='/page' element={<h1>iafjdsf</h1>}></Route>
-        <Route path="/shop" Component={ProductPage} element={<ProductPage></ProductPage>} >
-        </Route>
+        
+        <Route exact path='/products' Component={ProductPage} element={<ProductPage/>}></Route>
+        <Route path='/products/:page?/:perPage?' Component={ProductPage} element={<ProductPage/>}></Route>
 
         <Route path="/cart" element={
           <CartContext.Provider value={[p, setP]
