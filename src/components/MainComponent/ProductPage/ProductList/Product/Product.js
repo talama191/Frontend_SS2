@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import useStore from "../../../../../context/cartStore";
+import { memo } from "react";
 
 function Product(props) {
     const addToCart = useStore((state) => state.addToCart)
@@ -43,4 +44,4 @@ function Product(props) {
     )
 }
 
-export default Product
+export default memo(Product)

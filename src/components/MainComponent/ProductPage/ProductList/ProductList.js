@@ -2,20 +2,18 @@
 import { Link, NavLink, useParams } from "react-router-dom";
 import { GetProducts, GetTotalPageForSearch, SearchProduct } from "../../../../service/Services";
 import Product from "./Product/Product";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { SearchFilter } from "../../../../models/SearchFilter";
 
-function ProductList({ sortProducts, perPage, pageNum, filterApplied, minPrice, maxPrice }) {
+function ProductList({ perPage, pageNum, filterApplied, minPrice, maxPrice }) {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(pageNum);
-    const [productsPerPage, setProductsPerPage] = useState(perPage);
     const [totalPage, setTotalPage] = useState(1);
-    var currentProducts;
     var totalPages = 1;
     useEffect(() => {
-        
+        searchProducts(perPage, pageNum);
     }, []);
-    async function searchProducts() {
+    async function searchProducts(perPage, pageNum) {
         let filter = new SearchFilter("", perPage, pageNum - 1);
         filter.sortType = "asc";
         filter.sortField = "price";
@@ -29,7 +27,7 @@ function ProductList({ sortProducts, perPage, pageNum, filterApplied, minPrice, 
             console.error(error);
         }
     }
-    searchProducts();
+
     // Filter and sort products
     let filteredProducts = products;
     if (filterApplied) {
@@ -39,14 +37,13 @@ function ProductList({ sortProducts, perPage, pageNum, filterApplied, minPrice, 
     }
 
     console.log(pageNum);
-    currentProducts = products;
     totalPages = totalPage;
 
 
     return (
         <>
             <div className="row">
-                {currentProducts.map((product) => (
+                {products.map((product) => (
                     <Product key={product.id} {...product} />
                 ))}
             </div>
@@ -55,7 +52,11 @@ function ProductList({ sortProducts, perPage, pageNum, filterApplied, minPrice, 
                     {Array.from({ length: totalPages }, (_, i) => (
                         <li key={i} className={`page-item ${i + 1 === parseInt(currentPage) ? 'active' : ''}`}>
                             <NavLink to={`/products/${i + 1}/${perPage}`}>
-                                <button className="page-link" >
+                                <button className="page-link" onClick={() => {
+                                    // setCurrentPage(i + 1);
+                                    searchProducts(perPage, i + 1);
+                                }
+                                }>
                                     {i + 1}
                                 </button>
                             </NavLink>
@@ -68,4 +69,5 @@ function ProductList({ sortProducts, perPage, pageNum, filterApplied, minPrice, 
     );
 }
 
-export default ProductList;
+
+export default memo(ProductList);

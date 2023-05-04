@@ -1,19 +1,39 @@
 import ProductList from "./ProductList/ProductList";
 
 import 'rc-slider/assets/index.css';
-import React, { useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import PriceRange from "../Slider/PriceRange/PriceRange";
 import { useParams } from "react-router-dom";
+import { GetAllCategories } from "../../../service/Services";
+import CategoryListSideBar from "../../../Modules/CategoryListSideBar";
 
 
 function ProductPage() {
-    const { page,perPage,pageNum } = useParams();
+    const { page, perPage, pageNum } = useParams();
     const [sortOption, setSortOption] = useState('default');
     let sortedProducts = [];
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(100);
     const [filterApplied, setFilterApplied] = useState(false);
+    const [categories, setCategories] = useState([]);
 
+    useEffect(() => {
+        loadCategories();
+    }, []);
+    // useEffect(() => {
+    async function loadCategories() {
+        try {
+            const result = await GetAllCategories();
+            // categoriesDisplayList = result.response.data;
+            setCategories(result.response.data);
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
+    console.log("call");
     const handleFilterClick = () => {
         setFilterApplied(true);
 
@@ -93,41 +113,9 @@ function ProductPage() {
                                     </header>
                                     <div class="collapse show" id="collapse_aside_brands">
                                         <div class="card-body">
-                                            <label class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="" checked />
-                                                <span class="form-check-label"> Mercedes </span>
-                                                <b class="badge rounded-pill bg-gray-dark float-end">120</b>
-                                            </label>
-
-                                            <label class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="" checked />
-                                                <span class="form-check-label"> Toyota </span>
-                                                <b class="badge rounded-pill bg-gray-dark float-end">15</b>
-                                            </label>
-
-                                            <label class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="" checked />
-                                                <span class="form-check-label"> Mitsubishi </span>
-                                                <b class="badge rounded-pill bg-gray-dark float-end">35</b>
-                                            </label>
-
-                                            <label class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="" checked />
-                                                <span class="form-check-label"> Nissan </span>
-                                                <b class="badge rounded-pill bg-gray-dark float-end">89</b>
-                                            </label>
-
-                                            <label class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="" />
-                                                <span class="form-check-label"> Honda </span>
-                                                <b class="badge rounded-pill bg-gray-dark float-end">30</b>
-                                            </label>
-
-                                            <label class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="" />
-                                                <span class="form-check-label"> Honda accord </span>
-                                                <b class="badge rounded-pill bg-gray-dark float-end">30</b>
-                                            </label>
+                                            <div class="row">
+                                                <CategoryListSideBar categories={categories} />
+                                            </div>
                                         </div>
                                     </div>
                                 </article>
@@ -209,23 +197,14 @@ function ProductPage() {
                             <div class="row">
                                 <ProductList sortProducts={sortProducts} minPrice={minPrice} perPage={perPage} pageNum={page} maxPrice={maxPrice} filterApplied={filterApplied} />
 
-
-
                             </div>
 
                             <hr />
-
-
-
                         </main>
                     </div>
                 </div>
             </section>
-
-
         </div>
-
-
     );
 }
-export default ProductPage;
+export default memo(ProductPage);

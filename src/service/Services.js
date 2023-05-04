@@ -18,13 +18,13 @@ export const SearchProduct = async (searchFilter) => {
         },
         body: JSON.stringify(
             {
-                keyword:searchFilter.keyword,
-                perPage:searchFilter.perPage,
-                pageNum:searchFilter.pageNum,
-                brand_ids:searchFilter.brand_ids,
-                category_ids:searchFilter.category_ids,
-                sortType:searchFilter.sortType,
-                sortField:searchFilter.sortField
+                keyword: searchFilter.keyword,
+                perPage: searchFilter.perPage,
+                pageNum: searchFilter.pageNum,
+                brand_ids: searchFilter.brand_ids,
+                category_ids: searchFilter.category_ids,
+                sortType: searchFilter.sortType,
+                sortField: searchFilter.sortField
             }
         )
     }).then(response => {
@@ -45,13 +45,13 @@ export const GetTotalPageForSearch = async (searchFilter) => {
         },
         body: JSON.stringify(
             {
-                keyword:searchFilter.keyword,
-                perPage:searchFilter.perPage,
-                pageNum:searchFilter.pageNum,
-                brand_ids:searchFilter.brand_ids,
-                category_ids:searchFilter.category_ids,
-                sortType:searchFilter.sortType,
-                sortField:searchFilter.sortField
+                keyword: searchFilter.keyword,
+                perPage: searchFilter.perPage,
+                pageNum: searchFilter.pageNum,
+                brand_ids: searchFilter.brand_ids,
+                category_ids: searchFilter.category_ids,
+                sortType: searchFilter.sortType,
+                sortField: searchFilter.sortField
             }
         )
     }).then(response => {
@@ -61,5 +61,21 @@ export const GetTotalPageForSearch = async (searchFilter) => {
             return { response: responseJson };
         }
     );
+    return response;
+}
+export const GetAllCategories = async () => {
+    var response = await fetch(`${BASE_URL}/categories`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then(response => {
+        return response.json();
+    }).then(
+        responsJson => {
+            return { response: responsJson };
+        }
+    )
     return response;
 }
