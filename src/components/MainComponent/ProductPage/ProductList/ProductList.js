@@ -2,24 +2,25 @@
 import { Link, NavLink, useParams } from "react-router-dom";
 import { GetProducts, GetTotalPageForSearch, SearchProduct } from "../../../../service/Services";
 import Product from "./Product/Product";
-import React, { useState, useEffect, memo } from 'react';
-import { SearchFilter } from "../../../../models/SearchFilter";
+import React, { useState, useEffect, memo, useContext } from 'react';
+import { globalSearchFilter } from "../../../../GlobalVariables";
 
-function ProductList({ perPage, pageNum, filterApplied, minPrice, maxPrice }) {
+function ProductList(props) {
     const [products, setProducts] = useState([]);
-    const [currentPage, setCurrentPage] = useState(pageNum);
+    const [currentPage, setCurrentPage] = useState(props.pageNum);
     const [totalPage, setTotalPage] = useState(1);
+    const searchFilter = useContext(globalSearchFilter);
     var totalPages = 1;
     useEffect(() => {
-        searchProducts(perPage, pageNum);
-    }, []);
+        searchProducts(props.perPage, props.pageNum);
+        console.log(props);
+    }, [props.update]);
     async function searchProducts(perPage, pageNum) {
-        let filter = new SearchFilter("", perPage, pageNum - 1);
-        filter.sortType = "asc";
-        filter.sortField = "price";
+        searchFilter.perPage  = perPage;
+        searchFilter.pageNum = pageNum - 1;
         try {
-            const result = await SearchProduct(filter);
-            const totalPageResult = await GetTotalPageForSearch(filter);
+            const result = await SearchProduct(searchFilter);
+            const totalPageResult = await GetTotalPageForSearch(searchFilter);
             setProducts(result.response.data)
             setTotalPage(totalPageResult.response.data);
             setCurrentPage(pageNum);
@@ -27,16 +28,16 @@ function ProductList({ perPage, pageNum, filterApplied, minPrice, maxPrice }) {
             console.error(error);
         }
     }
+    console.log("rerender product list")
 
     // Filter and sort products
-    let filteredProducts = products;
-    if (filterApplied) {
-        filteredProducts = products.filter(
-            (product) => product.price >= minPrice && product.price <= maxPrice
-        );
-    }
+    // let filteredProducts = products;
+    // if (filterApplied) {
+    //     filteredProducts = products.filter(
+    //         (product) => product.price >= minPrice && product.price <= maxPrice
+    //     );
+    // }
 
-    console.log(pageNum);
     totalPages = totalPage;
 
 
@@ -51,10 +52,10 @@ function ProductList({ perPage, pageNum, filterApplied, minPrice, maxPrice }) {
                 <ul className="pagination justify-content-center">
                     {Array.from({ length: totalPages }, (_, i) => (
                         <li key={i} className={`page-item ${i + 1 === parseInt(currentPage) ? 'active' : ''}`}>
-                            <NavLink to={`/products/${i + 1}/${perPage}`}>
+                            <NavLink to={`/products/${i + 1}/${props.perPage}`}>
                                 <button className="page-link" onClick={() => {
                                     // setCurrentPage(i + 1);
-                                    searchProducts(perPage, i + 1);
+                                    searchProducts(props.perPage, i + 1);
                                 }
                                 }>
                                     {i + 1}

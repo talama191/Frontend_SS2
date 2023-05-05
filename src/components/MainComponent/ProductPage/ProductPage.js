@@ -1,26 +1,30 @@
 import ProductList from "./ProductList/ProductList";
 
 import 'rc-slider/assets/index.css';
-import React, { memo, useEffect, useMemo, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import PriceRange from "../Slider/PriceRange/PriceRange";
 import { useParams } from "react-router-dom";
 import { GetAllCategories } from "../../../service/Services";
 import CategoryListSideBar from "../../../Modules/CategoryListSideBar";
-
+import { SearchFilter } from "../../../models/SearchFilter";
+import { globalSearchFilter } from "../../../GlobalVariables";
 
 function ProductPage() {
-    const { page, perPage, pageNum } = useParams();
+    const { page, perPage } = useParams();
     const [sortOption, setSortOption] = useState('default');
     let sortedProducts = [];
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(100);
     const [filterApplied, setFilterApplied] = useState(false);
     const [categories, setCategories] = useState([]);
-
+    const searchFilter = useContext(globalSearchFilter);
+    const [update, setUpdate] = useState(1);
     useEffect(() => {
         loadCategories();
     }, []);
-    // useEffect(() => {
+    function forceUpdate() {
+        setUpdate(update + 1);
+    }
     async function loadCategories() {
         try {
             const result = await GetAllCategories();
@@ -31,9 +35,7 @@ function ProductPage() {
             console.error(error);
         }
     }
-
-
-    console.log("call");
+    console.log("update product page");
     const handleFilterClick = () => {
         setFilterApplied(true);
 
@@ -49,6 +51,7 @@ function ProductPage() {
     };
     const handleSortChange = (event) => {
         setSortOption(event.target.value);
+        setMinPrice(minPrice + 1);
     };
     const sortProducts = (products) => {
         switch (sortOption) {
@@ -74,20 +77,13 @@ function ProductPage() {
                     </ol>
                 </div>
             </section>
-
-
-
             <section class="padding-y">
                 <div class="container">
-
                     <div class="row">
                         <aside class="col-lg-3">
-
                             <button class="btn btn-outline-secondary mb-3 w-100  d-lg-none" data-bs-toggle="collapse" data-bs-target="#aside_filter">Show filter</button>
 
-
                             <div id="aside_filter" class="collapse card d-lg-block mb-5">
-
                                 <article class="filter-group">
                                     <header class="card-header">
                                         <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside1">
@@ -114,7 +110,7 @@ function ProductPage() {
                                     <div class="collapse show" id="collapse_aside_brands">
                                         <div class="card-body">
                                             <div class="row">
-                                                <CategoryListSideBar categories={categories} />
+                                                <CategoryListSideBar setProductPageUpdate={forceUpdate} categories={categories} searchFilter={searchFilter} />
                                             </div>
                                         </div>
                                     </div>
@@ -195,8 +191,14 @@ function ProductPage() {
 
 
                             <div class="row">
-                                <ProductList sortProducts={sortProducts} minPrice={minPrice} perPage={perPage} pageNum={page} maxPrice={maxPrice} filterApplied={filterApplied} />
-
+                                <ProductList
+                                    minPrice={minPrice}
+                                    perPage={perPage}
+                                    pageNum={page}
+                                    maxPrice={maxPrice}
+                                    searchFilter={searchFilter}
+                                    update={update}
+                                />
                             </div>
 
                             <hr />
@@ -207,4 +209,4 @@ function ProductPage() {
         </div>
     );
 }
-export default memo(ProductPage);
+export default ProductPage;
