@@ -104,7 +104,7 @@ function ProductPage() {
                                 <article class="filter-group">
                                     <header class="card-header">
                                         <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_brands">
-                                            <i class="icon-control fa fa-chevron-down"></i>  Brands
+                                            <i class="icon-control fa fa-chevron-down"></i>  Categories
                                         </a>
                                     </header>
                                     <div class="collapse show" id="collapse_aside_brands">
