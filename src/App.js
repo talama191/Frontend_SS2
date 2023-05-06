@@ -27,7 +27,7 @@ function App() {
         <Route path='/page' element={<h1>iafjdsf</h1>}></Route>
         
         <Route exact path='/products' Component={ProductPage} element={<ProductPage/>}></Route>
-        <Route path='/products/:page?/:perPage?' Component={ProductPage} element={<ProductPage/>}></Route>
+        <Route path='/products/:page?/:perPage?/:keyword?' Component={ProductPage} element={<ProductPage/>}></Route>
 
         <Route path="/cart" element={
           <CartContext.Provider value={[p, setP]

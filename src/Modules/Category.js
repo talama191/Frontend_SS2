@@ -1,9 +1,11 @@
 import { memo, useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 
 function Category(props) {
     const [isChecked, setChecked] = useState(false);
     let searchFilter = props.searchFilter;
+
     function addCategory() {
         if (!isChecked) {
             searchFilter.category_ids.push(props.id);
@@ -17,15 +19,18 @@ function Category(props) {
             }
         }
         setChecked(!isChecked);
+        searchFilter.pageNum = 0;
     }
     return (
         <label class="form-check mb-2">
             <input class="form-check-input" type="checkbox" value="" checked={isChecked} onClick={() => {
                 addCategory();
                 props.setProductPageUpdate();
+                window.history.replaceState(null,"Products",`/products/1/${searchFilter.perPage}`)
             }
 
             } />
+
             <span class="form-check-label"> {props.name} </span>
         </label>
     )

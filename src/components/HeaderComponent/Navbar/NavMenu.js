@@ -3,21 +3,7 @@ import NavItem from './NavItem';
 
 function NavMenu() {
     const navItems = [
-        { label: 'Categories', href: 'products/1/10' },
-        { label: 'Hot offers', href: '#' },
-        { label: 'Gift boxes', href: '#' },
-        { label: 'Projects', href: '#' },
-        { label: 'Menu item', href: '#' },
-        { label: 'Menu name', href: '#' },
-        {
-            label: 'Others',
-            dropdown: true,
-            dropdownItems: [
-                { label: 'Submenu one', href: '#' },
-                { label: 'Submenu two', href: '#' },
-                { label: 'Submenu three', href: '#' },
-            ],
-        },
+        { label: 'Products', href: 'products/1/10' },
     ];
 
     return (

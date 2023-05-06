@@ -19,11 +19,25 @@ function ProductPage() {
     const [categories, setCategories] = useState([]);
     const searchFilter = useContext(globalSearchFilter);
     const [update, setUpdate] = useState(1);
+    var pageVar=1;
+    var perPageVar=10;
+    // if(page!==1){
+    //     pageVar=page;
+    // }
     useEffect(() => {
+        pageVar=page;
+        perPageVar=perPage;
+        searchFilter.pageNum=page;
+        searchFilter.perPage=perPage;
         loadCategories();
+        
     }, []);
     function forceUpdate() {
         setUpdate(update + 1);
+        // pageVar=1;
+        // perPageVar=searchFilter.perPage;
+        searchFilter.pageNum=1;
+        searchFilter.perPage=10;
     }
     async function loadCategories() {
         try {
@@ -35,6 +49,7 @@ function ProductPage() {
             console.error(error);
         }
     }
+    
     console.log("update product page");
     const handleFilterClick = () => {
         setFilterApplied(true);
@@ -68,13 +83,8 @@ function ProductPage() {
 
 
             <section class="bg-primary py-5">
-                <div class="container">
-                    <h2 class="text-white">Men's wear</h2>
-                    <ol class="breadcrumb ondark mb-0">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Library</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Data</li>
-                    </ol>
+                <div class="container" style={{textAlign:'center'}}>
+                    <h2 class="text-white" >Products</h2>
                 </div>
             </section>
             <section class="padding-y">
@@ -130,40 +140,6 @@ function ProductPage() {
                                         </div>
                                     </div>
                                 </article>
-
-                                <article class="filter-group">
-                                    <header class="card-header">
-                                        <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside3">
-                                            <i class="icon-control fa fa-chevron-down"></i>  Size
-                                        </a>
-                                    </header>
-                                    <div class="collapse show" id="collapse_aside3">
-                                        <div class="card-body">
-                                            <label class="checkbox-btn">
-                                                <input type="checkbox" />
-                                                <span class="btn btn-light"> XS </span>
-                                            </label>
-
-                                            <label class="checkbox-btn">
-                                                <input type="checkbox" />
-                                                <span class="btn btn-light"> SM </span>
-                                            </label>
-
-                                            <label class="checkbox-btn">
-                                                <input type="checkbox" />
-                                                <span class="btn btn-light"> LG </span>
-                                            </label>
-
-                                            <label class="checkbox-btn">
-                                                <input type="checkbox" />
-                                                <span class="btn btn-light"> XXL </span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </article>
-
-
-
                             </div>
 
 
@@ -171,7 +147,6 @@ function ProductPage() {
                         <main class="col-lg-9">
 
                             <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
-                                <strong class="d-block py-2">32 Items found </strong>
                                 <div class="ms-auto ">
                                     <select class="form-select d-inline-block w-auto me-1" value={sortOption} onChange={handleSortChange} >
                                         <option value="default">Default</option>
@@ -193,8 +168,8 @@ function ProductPage() {
                             <div class="row">
                                 <ProductList
                                     minPrice={minPrice}
-                                    perPage={perPage}
-                                    pageNum={page}
+                                    perPage={perPageVar}
+                                    pageNum={pageVar}
                                     maxPrice={maxPrice}
                                     searchFilter={searchFilter}
                                     update={update}

@@ -12,15 +12,16 @@ function ProductList(props) {
     const searchFilter = useContext(globalSearchFilter);
     var totalPages = 1;
     useEffect(() => {
-        searchProducts(props.perPage, props.pageNum);
-        console.log(props);
+        searchProducts(searchFilter.perPage, searchFilter.pageNum);
     }, [props.update]);
     async function searchProducts(perPage, pageNum) {
-        searchFilter.perPage  = perPage;
+        searchFilter.perPage = perPage;
         searchFilter.pageNum = pageNum - 1;
         try {
+            console.log(searchFilter.pageNum);
             const result = await SearchProduct(searchFilter);
             const totalPageResult = await GetTotalPageForSearch(searchFilter);
+
             setProducts(result.response.data)
             setTotalPage(totalPageResult.response.data);
             setCurrentPage(pageNum);
@@ -28,8 +29,7 @@ function ProductList(props) {
             console.error(error);
         }
     }
-    console.log("rerender product list")
-
+    totalPages = totalPage;
     // Filter and sort products
     // let filteredProducts = products;
     // if (filterApplied) {
@@ -38,7 +38,7 @@ function ProductList(props) {
     //     );
     // }
 
-    totalPages = totalPage;
+
 
 
     return (
@@ -55,7 +55,7 @@ function ProductList(props) {
                             <NavLink to={`/products/${i + 1}/${props.perPage}`}>
                                 <button className="page-link" onClick={() => {
                                     // setCurrentPage(i + 1);
-                                    searchProducts(props.perPage, i + 1);
+                                    searchProducts(searchFilter.perPage, i + 1);
                                 }
                                 }>
                                     {i + 1}
