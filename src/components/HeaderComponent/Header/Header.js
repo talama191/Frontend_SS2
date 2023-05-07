@@ -2,16 +2,16 @@ import HeaderMain from "../HeaderMain/HeaderMain";
 import Navbar from "../Navbar/Navbar";
 import { Link } from "react-router-dom";
 import HeaderButton from "../UI/Buttons/HeaderButton";
-import Brand from "../UI/Logo/Brand";
+import PageBrand from "../UI/Logo/Brand";
 import SearchForm from "../UI/SearchForm/SearchForm";
 function Header({ isAuthenticated, setIsAuthenticated, onLogout }) {
     return (
         <header class="section-header">
             <section class="header-main">
                 <div class="container">
-                    <div class="row gy-3 align-items-center">
-                        <Brand />
-                        <div class="order-lg-last col-lg-5 col-sm-8 col-8">
+                    <div class="row  align-items-center">
+                        <PageBrand />
+                        <div class="col align-self-end ">
                             <div class="float-end">
 
                                 {isAuthenticated ? <span>{localStorage.getItem('username')} <button onClick={() => {
@@ -23,7 +23,7 @@ function Header({ isAuthenticated, setIsAuthenticated, onLogout }) {
                                 <Link to='/cart'> <HeaderButton name="My Cart" logo="fa fa-shopping-cart" /></Link>
                             </div>
                         </div>
-                        <SearchForm />
+                        {/* <SearchForm /> */}
                     </div>
                 </div>
             </section>

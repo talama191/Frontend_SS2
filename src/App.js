@@ -24,16 +24,11 @@ function App() {
       {/* <Login></Login> */}
       <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
       <Routes>
-        <Route path='/page' element={<h1>iafjdsf</h1>}></Route>
-        
         <Route exact path='/products' Component={ProductPage} element={<ProductPage/>}></Route>
         <Route path='/products/:page?/:perPage?/:keyword?' Component={ProductPage} element={<ProductPage/>}></Route>
-
         <Route path="/cart" element={
           <CartContext.Provider value={[p, setP]
-
           }>  <ShoppingCart /></CartContext.Provider>
-
         }></Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
         <Route path="/product/:id" Component={ProductDetailPage} element={<ProductDetailPage></ProductDetailPage>}></Route>

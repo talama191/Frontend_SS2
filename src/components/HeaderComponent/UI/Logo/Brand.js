@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Brand() {
+function PageBrand() {
     return (
         <div class="col-lg-2 col-sm-4 col-4">
             <Link to="/" class="navbar-brand">
@@ -9,4 +9,4 @@ function Brand() {
         </div>
     );
 };
-export default Brand;
+export default PageBrand;

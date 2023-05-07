@@ -79,3 +79,19 @@ export const GetAllCategories = async () => {
     )
     return response;
 }
+export const GetAllBrands = async () => {
+    var response = await fetch(`${BASE_URL}/brands`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then(response => {
+        return response.json();
+    }).then(
+        responsJson => {
+            return { response: responsJson };
+        }
+    )
+    return response;
+}
