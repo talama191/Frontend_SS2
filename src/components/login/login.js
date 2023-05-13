@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Paper, Avatar, TextField, Button, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Link } from "react-router-dom";
 import FromControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import axios from 'axios';
+import { http } from "../../helpers/request";
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
-const Login = ({ handleChange }) => {
+const Login = ({ isAuthenticated, setIsAuthenticated }) => {
 
     const paperStyle = { padding: 20, height: '73vh', width: 360, margin: "0 auto" }
     const avatarStyle = { backgroundColor: '#00BCD4' }
@@ -17,11 +20,23 @@ const Login = ({ handleChange }) => {
         remember: false
     }
     const validationSchema = Yup.object().shape({
-        username: Yup.string().email('please enter valid email').required('Required'),
+        username: Yup.string().required('Required'),
         password: Yup.string().required("required")
     })
-    const onSubmit = (values, props) => {
-        console.log(props)
+    const navigate = useNavigate();
+    const onSubmit = async (values, props) => {
+
+        console.log(values)
+        const { data } = await http.post(`/user-auth/authenticate`, values)
+        const token = data.data.accessToken;
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', values.username)
+        console.log(data.data);
+        setIsAuthenticated(true);
+        navigate('/');
+
+        console.log(props);
+        console.log();
         setTimeout(() => {
             props.resetForm()
             props.setSubmitting(true)
