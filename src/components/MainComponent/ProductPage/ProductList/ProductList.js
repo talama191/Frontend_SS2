@@ -17,6 +17,9 @@ function ProductList(props) {
     async function searchProducts(perPage, pageNum) {
         searchFilter.perPage = perPage;
         searchFilter.keyword = props.keyword;
+        if(props.keyword==undefined||props.keyword==null){
+            searchFilter.keyword="";
+        }
         searchFilter.pageNum = pageNum - 1;
         if (searchFilter.pageNum < 0) {
             searchFilter.pageNum = 0;

@@ -33,12 +33,19 @@ function ProductPage() {
         perPageVar = perPage;
         searchFilter.pageNum = page;
         searchFilter.perPage = perPage;
+        
         searchFilter.keyword = keyword;
+        if(keyword==undefined||keyword==null){
+            searchFilter.keyword="";
+        }
         loadCategoriesAndBrands();
 
     }, []);
     function forceUpdate() {
         searchFilter.keyword = keyword;
+        if(keyword==undefined||keyword==null){
+            searchFilter.keyword="";
+        }
         searchFilter.pageNum = 1;
         setUpdate(update + 1);
 
