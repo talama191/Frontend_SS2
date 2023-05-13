@@ -9,7 +9,6 @@ import ProductDetailPage from "./ProductDetailPage/ProductDetailPage";
 function Main() {
     return (
         <div>
-
         </div>
     );
 }
