@@ -1,3 +1,5 @@
+
+
 const BASE_URL = 'http://localhost:8080'
 
 export const GetProducts = fetch(`${BASE_URL}/products`)
@@ -91,6 +93,25 @@ export const GetAllBrands = async () => {
     }).then(
         responsJson => {
             return { response: responsJson };
+        }
+    )
+    return response;
+}
+export const GetUserDetailByUserName=async()=>{
+    var response=await fetch(`${BASE_URL}/user/get?username=${localStorage.getItem("username")}`,{
+        method:'Get',
+        headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+    }).then(
+        response=>{
+            return response.json();
+        }
+    ).then(
+        responseJson=>{
+            return {response:responseJson};
         }
     )
     return response;

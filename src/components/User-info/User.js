@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-function UserData({ authToken }) {
+import { GetUserDetailByUserName } from '../../service/Services';
+function UserData({ }) {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
     async function fetchUserData() {
-      const response = await axios.get('http://localhost:8080/user-auth/authenticate', {
-        headers: {
-          'Authorization': `Bearer ${authToken}`
-        }
-      });
-      const data = await response.json();
-      setUserData(data);
+      try {
+        const response = await GetUserDetailByUserName();
+        // const data = await response.json();
+        console.log(response.response);
+        setUserData(response.response.data);
+      } catch (error) {
+        console.log(error);
+      }
     }
     fetchUserData();
-  }, [authToken]);
+  }, []);
 
   if (!userData) {
     return <p>Loading user data...</p>;
