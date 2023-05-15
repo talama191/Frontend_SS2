@@ -12,7 +12,7 @@ import ShoppingCart from './components/MainComponent/ShoppingCart/ShoppingCart';
 import './App.css';
 import { CartContext } from './context/cartContext';
 import ProductDetailPage from './components/MainComponent/ProductDetailPage/ProductDetailPage';
-import UserData from './components/User-info/User';
+import UserData from './components/User-info/UserInfo';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

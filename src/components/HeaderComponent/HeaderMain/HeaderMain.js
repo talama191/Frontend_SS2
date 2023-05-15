@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import HeaderButton from "../UI/Buttons/HeaderButton";
 import PageBrand from "../UI/Logo/Brand";
-import SearchForm from "../UI/SearchForm/SearchForm";
+import SearchForm from "../../MainComponent/ProductPage/SearchForm/SearchForm";
 function HeaderMain() {
     return (
         <section class="header-main">

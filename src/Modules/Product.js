@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useStore from "../../../../../context/cartStore";
+import useStore from "../context/cartStore";
 import { memo } from "react";
 
 function Product(props) {

@@ -10,6 +10,7 @@ import { SearchFilter } from "../../../models/SearchFilter";
 import { globalSearchFilter } from "../../../GlobalVariables";
 import BrandListSideBar from "../../../Modules/BrandListSideBar";
 import { Margin, Padding } from "@mui/icons-material";
+import SearchForm from "./SearchForm/SearchForm";
 
 function ProductPage() {
     const { page, perPage, keyword } = useParams();
@@ -33,20 +34,18 @@ function ProductPage() {
         perPageVar = perPage;
         searchFilter.pageNum = page;
         searchFilter.perPage = perPage;
-        
+
         searchFilter.keyword = keyword;
-        if(keyword==undefined||keyword==null){
-            searchFilter.keyword="";
+        if (keyword == undefined || keyword == null) {
+            keyword = "";
+            searchFilter.keyword = "";
         }
         loadCategoriesAndBrands();
 
     }, []);
     function forceUpdate() {
-        searchFilter.keyword = keyword;
-        if(keyword==undefined||keyword==null){
-            searchFilter.keyword="";
-        }
-        searchFilter.pageNum = 1;
+        searchFilter.pageNum = 0;
+        console.log(searchFilter);
         setUpdate(update + 1);
 
     }
@@ -158,7 +157,7 @@ function ProductPage() {
                                     </div>
                                 </article>
 
-                                <article class="filter-group">
+                                {/* <article class="filter-group">
                                     <header class="card-header">
                                         <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside2">
                                             <i class="icon-control fa fa-chevron-down"></i>  Price
@@ -171,28 +170,32 @@ function ProductPage() {
                                             <button class="btn w-100" type="button" onClick={handleFilterClick} >Apply</button>
                                         </div>
                                     </div>
-                                </article>
+                                </article> */}
                             </div>
 
 
                         </aside>
                         <main class="col-lg-9">
 
-                            <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
-
-                                <div class="ms-auto ">
-                                    <span style={{ marginRight: '10px' }}>Sort by:</span>
+                            <header class="border-bottom row" style={{ marginBottom: '10px', paddingBottom: '10px' }}>
+                                <span class="col-lg-7 align-self-end" style={{ marginBottom: '2px' }} >
+                                    <SearchForm  forceUpdate={forceUpdate} searchFilter={searchFilter} /></span>
+                                <span class="col-lg-2" style={{ textAlign: 'center' }}>
+                                    <span style={{ marginRight: '10px', textAlign: 'center' }}>Sort by:</span>
                                     <select class="form-select d-inline-block w-auto me-1" value={sortFieldOption} onChange={handleSortTypeChange} >
                                         <option value="name">Name</option>
                                         <option value="price">Price</option>
                                     </select>
-                                    <span style={{ marginLeft: '10px', marginRight: '10px' }}>Sort type:</span>
+                                </span>
+                                <span class="col-lg-3" style={{ textAlign: 'center' }}>
+                                    <span style={{ marginRight: '10px' }}>Sort type:</span>
                                     <select class="form-select d-inline-block w-auto me-1" value={sortOption} onChange={handleSortChange} >
                                         <option value="default">Default</option>
                                         <option value="low-to-high">Ascending</option>
                                         <option value="high-to-low">Descending</option>
                                     </select>
-                                </div>
+                                </span>
+
                             </header>
 
 

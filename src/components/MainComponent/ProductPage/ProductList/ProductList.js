@@ -1,7 +1,7 @@
 
 import { Link, NavLink, useParams } from "react-router-dom";
 import { GetProducts, GetTotalPageForSearch, SearchProduct } from "../../../../service/Services";
-import Product from "./Product/Product";
+import Product from "../../../../Modules/Product";
 import React, { useState, useEffect, memo, useContext } from 'react';
 import { globalSearchFilter } from "../../../../GlobalVariables";
 
@@ -16,10 +16,7 @@ function ProductList(props) {
     }, [props.update]);
     async function searchProducts(perPage, pageNum) {
         searchFilter.perPage = perPage;
-        searchFilter.keyword = props.keyword;
-        if(props.keyword==undefined||props.keyword==null){
-            searchFilter.keyword="";
-        }
+        
         searchFilter.pageNum = pageNum - 1;
         if (searchFilter.pageNum < 0) {
             searchFilter.pageNum = 0;
