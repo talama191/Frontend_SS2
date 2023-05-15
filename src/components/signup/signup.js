@@ -12,7 +12,7 @@ import { FormHelperText } from "@mui/material";
 import { red } from "@material-ui/core/colors";
 import { color } from "@mui/system";
 const Signup = () => {
-    const paperStyle = { padding: 20, width: 360, margin: "0 auto" }
+    const paperStyle = { padding: 20, width: 500, margin: "0 auto" }
     const headerStyle = { margin: 0 }
     const avatarStyle = { backgroundColor: '#00BCD4' }
     const marginTop = { marginTop: 10 }

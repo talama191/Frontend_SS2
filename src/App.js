@@ -13,7 +13,8 @@ import './App.css';
 import { CartContext } from './context/cartContext';
 import ProductDetailPage from './components/MainComponent/ProductDetailPage/ProductDetailPage';
 import UserData from './components/User-info/UserInfo';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [p, setP] = useState('')
@@ -23,6 +24,7 @@ function App() {
       {/* <SignInOutContainer /> */}
       {/* <Login></Login> */}
       <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+
       <Routes>
         <Route exact path='/products' Component={ProductPage} element={<ProductPage />}></Route>
         <Route path='/products/:page?/:perPage?/:keyword?' Component={ProductPage} element={<ProductPage />}></Route>
@@ -41,9 +43,12 @@ function App() {
         <Route path="/login" element={<Login isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />
         <Route path='*' element={<h1>404 not found</h1>}></Route>
       </Routes>
+
       <Main></Main>
       <Footer></Footer>
-
+      <div>
+        <ToastContainer />
+      </div>
     </div>
   );
 }

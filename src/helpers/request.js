@@ -5,8 +5,10 @@ const http = axios.create({
 });
 
 http.interceptors.request.use(function (config) {
+
     let token = localStorage.getItem('token');
-    config.headers.Authorization = `Bearer ${token}`
+    if (token !== "" || token !== null) config.headers.Authorization = `Bearer ${token}`
+    // config.headers.Authorization=null;
     return config;
 })
 export { http };

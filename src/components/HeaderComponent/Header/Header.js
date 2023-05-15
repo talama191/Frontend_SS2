@@ -14,7 +14,7 @@ function Header({ isAuthenticated, setIsAuthenticated, onLogout }) {
                     <div class="row gy-3 align-items-center">
 
                         <Brand />
-                        <div class="order-lg-last col-lg-5 col-sm-8 col-8">
+                        <div class="order-lg-last col-lg-4 col-sm-8 col-5 ml-auto ">
                             <div class="float-end">
 
                                 {isAuthenticated ? (

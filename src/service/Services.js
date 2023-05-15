@@ -98,6 +98,9 @@ export const GetAllBrands = async () => {
     return response;
 }
 export const GetUserDetailByUserName=async()=>{
+    if(localStorage.getItem("token")==null){
+        return null;
+    }
     var response=await fetch(`${BASE_URL}/user/get?username=${localStorage.getItem("username")}`,{
         method:'Get',
         headers:{

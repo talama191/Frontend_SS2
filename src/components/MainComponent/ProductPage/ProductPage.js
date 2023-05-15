@@ -37,7 +37,7 @@ function ProductPage() {
 
         searchFilter.keyword = keyword;
         if (keyword == undefined || keyword == null) {
-            keyword = "";
+            // keyword = "";
             searchFilter.keyword = "";
         }
         loadCategoriesAndBrands();
