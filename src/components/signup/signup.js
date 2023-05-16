@@ -11,6 +11,7 @@ import * as Yup from 'yup'
 import { FormHelperText } from "@mui/material";
 import { red } from "@material-ui/core/colors";
 import { color } from "@mui/system";
+import { ShowAlertToast, ShowSuccessToast } from "../../services/ToastService";
 const Signup = () => {
     const paperStyle = { padding: 20, width: 500, margin: "0 auto" }
     const headerStyle = { margin: 0 }
@@ -46,8 +47,7 @@ const Signup = () => {
         });
 
         const data = await response.json();
-        console.log(data.status_code);
-        (data.status_code === 409) ? alert('failed') : alert('successfully')
+        (data.status_code === 409) ? ShowAlertToast("Register failed!") : ShowSuccessToast("Register success!")
         setTimeout(() => {
 
             props.resetForm()

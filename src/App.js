@@ -3,7 +3,7 @@ import Footer from './components/FooterComponent/Footer/Footer';
 import Main from './components/MainComponent/Main'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './components/login/login';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HomePage from './components/MainComponent/HomePage/HomePage';
 import Signup from './components/signup/signup';
 import ProductPage from './components/MainComponent/ProductPage/ProductPage';
@@ -18,7 +18,11 @@ import 'react-toastify/dist/ReactToastify.min.css';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [p, setP] = useState('')
-  
+  useEffect(() => {
+
+    localStorage.getItem("isAuthenticated") == null ? setIsAuthenticated(false) : setIsAuthenticated(true);
+    console.log(localStorage.getItem("isAuthenticated"))
+  })
   return (
     <div className="App">
 

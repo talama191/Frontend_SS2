@@ -1,4 +1,5 @@
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 const http = axios.create({
     baseURL: 'http://localhost:8080',
     timeout: 5000,
@@ -7,8 +8,13 @@ const http = axios.create({
 http.interceptors.request.use(function (config) {
 
     let token = localStorage.getItem('token');
-    if (token !== "" || token !== null) config.headers.Authorization = `Bearer ${token}`
+    if (token !== null) {
+        var tokenDecoded=jwtDecode(token);
+        console.log(tokenDecoded);
+        config.headers.Authorization = `Bearer ${token}`
+    }
     // config.headers.Authorization=null;
     return config;
 })
 export { http };
+axios.defaults.headers.common["Authorization"]=localStorage.getItem('token')

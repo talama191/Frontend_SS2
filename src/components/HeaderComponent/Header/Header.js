@@ -29,6 +29,7 @@ function Header({ isAuthenticated, setIsAuthenticated, onLogout }) {
                                                 localStorage.removeItem('token');
                                                 localStorage.removeItem('username')
                                                 setIsAuthenticated(false);
+                                                localStorage.removeItem("isAuthenticated")
                                             }}>Log out</a>
                                         </div>
                                     </div>

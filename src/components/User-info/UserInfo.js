@@ -8,8 +8,8 @@ function UserData({ }) {
       try {
         const response = await GetUserDetailByUserName();
         // const data = await response.json();
-        console.log(response.response);
-        setUserData(response.response.data);
+        console.log(response);
+        setUserData(response.data);
       } catch (error) {
         console.log(error);
       }

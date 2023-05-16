@@ -1,3 +1,4 @@
+import { http } from "../helpers/request";
 
 
 const BASE_URL = 'http://localhost:8080'
@@ -101,21 +102,23 @@ export const GetUserDetailByUserName=async()=>{
     if(localStorage.getItem("token")==null){
         return null;
     }
-    var response=await fetch(`${BASE_URL}/user/get?username=${localStorage.getItem("username")}`,{
-        method:'Get',
-        headers:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }
-    }).then(
-        response=>{
-            return response.json();
-        }
-    ).then(
-        responseJson=>{
-            return {response:responseJson};
-        }
-    )
-    return response;
+    const {data}=await http.get(`/user/get?username=${localStorage.getItem("username")}`)
+    // var response=await fetch(`${BASE_URL}/user/get?username=${localStorage.getItem("username")}`,{
+    //     method:'Get',
+    //     headers:{
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json',
+    //         'Authorization': `Bearer ${localStorage.getItem("token")}`
+    //     }
+    // }).then(
+    //     response=>{
+    //         return response.json();
+    //     }
+    // ).then(
+    //     responseJson=>{
+    //         return {response:responseJson};
+    //     }
+    // )
+    console.log(data);
+    return data;
 }

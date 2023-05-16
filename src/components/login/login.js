@@ -5,12 +5,10 @@ import { Link } from "react-router-dom";
 import FromControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-import axios from 'axios';
 import { http } from "../../helpers/request";
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
-import { toast } from "react-toastify";
-import { ShowSuccessToast } from "../../services/ToastService";
+import { ShowAlertToast, ShowSuccessToast } from "../../services/ToastService";
 const Login = ({ isAuthenticated, setIsAuthenticated }) => {
 
     const paperStyle = { padding: 20, height: '73vh', width: "460px", margin: "0 auto" }
@@ -28,7 +26,8 @@ const Login = ({ isAuthenticated, setIsAuthenticated }) => {
     })
     const navigate = useNavigate();
     const onSubmit = async (values, props) => {
-
+        // var response=await http.get(`/users`)
+        // console.log(response.data);
         localStorage.removeItem('token');
         const { data } = await http.post(`/user-auth/authenticate`, values)
         if (data.status_code === 200) {
@@ -36,7 +35,7 @@ const Login = ({ isAuthenticated, setIsAuthenticated }) => {
             const token = data.data.accessToken;
             localStorage.setItem('token', token);
             localStorage.setItem('username', values.username)
-
+            localStorage.setItem('isAuthenticated', "true")
             setIsAuthenticated(true);
             navigate('/');
             setTimeout(() => {
@@ -45,63 +44,55 @@ const Login = ({ isAuthenticated, setIsAuthenticated }) => {
             }, 2000)
             ShowSuccessToast("Login Successful")
         } else {
-            toast.warn('Wrong username or password', {
-                position: "top-right",
-                autoClose: 2500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
+            ShowAlertToast("Wrong username or password");
         }
 
+       
     }
     return (
-            <Grid >
-                <Paper style={paperStyle}>
-                    <Grid align="center">
-                        <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
-                        <h2>Sign In</h2>
-                    </Grid>
-                    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-                        {(props) => (
-                            <Form>
+        <Grid >
+            <Paper style={paperStyle}>
+                <Grid align="center">
+                    <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
+                    <h2>Sign In</h2>
+                </Grid>
+                <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                    {(props) => (
+                        <Form>
 
-                                <Field as={TextField} label='Username' name="username" placeholder="Enter username" fullWidth required
-                                    helperText={<ErrorMessage name="username" />} />
-                                <Field as={TextField} label='Password' name="password" placeholder="Enter password" type='password' fullWidth required
-                                    helperText={<ErrorMessage name="password" />} />
-                                <Field as={FromControlLabel}
-                                    name="remember"
-                                    control={
-                                        <Checkbox
+                            <Field as={TextField} label='Username' name="username" placeholder="Enter username" fullWidth required
+                                helperText={<ErrorMessage name="username" />} />
+                            <Field as={TextField} label='Password' name="password" placeholder="Enter password" type='password' fullWidth required
+                                helperText={<ErrorMessage name="password" />} />
+                            <Field as={FromControlLabel}
+                                name="remember"
+                                control={
+                                    <Checkbox
 
-                                            color='primary'
-                                        />
-                                    }
-                                    label="Remember me"
-                                />
-                                <Button type='submit' color="primary"
-                                    variant='contained' style={btstyle} fullWidth
-                                    disabled={props.isSubmitting}>{props.isSubmitting ? "Loading" : "Sign in"}</Button>
-                            </Form>
-                        )}
-                    </Formik>
-                    <Typography>
-                        <Link href="#">
-                            Forgot password ?
-                        </Link>
-                    </Typography>
+                                        color='primary'
+                                    />
+                                }
+                                label="Remember me"
+                            />
+                            <Button type='submit' color="primary"
+                                variant='contained' style={btstyle} fullWidth
+                                disabled={props.isSubmitting}>{props.isSubmitting ? "Loading" : "Sign in"}</Button>
+                        </Form>
+                    )}
+                </Formik>
+                <Typography>
+                    <Link href="#">
+                        Forgot password ?
+                    </Link>
+                </Typography>
 
-                    <Typography> Do you have an account ?
-                        <Link to="/signup">
-                            Sign up ?
-                        </Link>
-                    </Typography>
-                </Paper>
-            </Grid>
+                <Typography> Do you have an account ?
+                    <Link to="/signup">
+                        Sign up ?
+                    </Link>
+                </Typography>
+            </Paper>
+        </Grid>
 
     )
 }
