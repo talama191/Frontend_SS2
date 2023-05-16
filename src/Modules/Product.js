@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import useStore from "../context/cartStore";
 import { memo } from "react";
+import { ShowSuccessToast } from "../services/ToastService";
 
 function Product(props) {
     const addToCart = useStore((state) => state.addToCart)
@@ -15,6 +16,7 @@ function Product(props) {
             type: ["yellow", "XL"],
         }
         addToCart(product)
+        ShowSuccessToast(`Add ${props.name} to cart!`)
     }
 
     return (

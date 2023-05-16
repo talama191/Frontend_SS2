@@ -122,3 +122,8 @@ export const GetUserDetailByUserName=async()=>{
     console.log(data);
     return data;
 }
+export function LogOut(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('username')
+    localStorage.removeItem("isAuthenticated")
+}

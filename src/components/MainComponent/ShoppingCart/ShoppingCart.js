@@ -7,24 +7,11 @@ function ShoppingCart() {
 
     const [products, setProducts] = useState(useStore((state) => state.products));
 
-
-
-    // const [products, setProducts] = useState([
-    //     {
-    //         id: 1, imgSrc: "assets/images/items/10.webp",
-    //         name: "T-shirts with multiple colors, for men and lady", type: ["yellow", "XL"], quantity: 4, price: '19.99', totalPrice: 0
-    //     },
-    //     {
-    //         id: 2, imgSrc: "assets/images/items/10.webp",
-    //         name: "T-shirts with multiple colors, for men and lady", type: ["yellow", "XL"], quantity: 1, price: '6.99', totalPrice: 0
-    //     },
-    //     {
-    //         id: 3, imgSrc: "assets/images/items/10.webp",
-    //         name: "T-shirts with multiple colors, for men and lady", type: ["yellow", "XL"], quantity: 3, price: '16.29', totalPrice: 0
-    //     },
-    // ]);
     const removeFromCart = useStore(state => state.removeFromCart);
-
+    const clearCart = useStore(state => state.clearCart);
+    function clearCartFunction() {
+        clearCart();
+    }
     function handleQuantityChange(productId, newQuantity) {
         console.log('asda');
 
@@ -112,7 +99,10 @@ function ShoppingCart() {
 
                                     <div class="mt-3">
                                         <a href="#" class="btn btn-success w-100 shadow-0 mb-2">
-                                            Make Purchase
+                                            Make Order
+                                        </a>
+                                        <a href="" onClick={clearCartFunction} class="btn btn-danger w-100 shadow-0 mb-2">
+                                            Clear Cart
                                         </a>
                                         <a href="#" class="btn btn-light w-100 border mt-2">
                                             Back to shop

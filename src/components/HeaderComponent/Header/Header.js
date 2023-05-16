@@ -6,6 +6,8 @@ import HeaderButton from "../UI/Buttons/HeaderButton";
 import PageBrand from "../UI/Logo/Brand";
 import Brand from "../UI/Logo/Brand";
 import SearchForm from "../../MainComponent/ProductPage/SearchForm/SearchForm";
+import { LogOut } from "../../../services/Services";
+import { ShowAlertToast } from "../../../services/ToastService";
 function Header({ isAuthenticated, setIsAuthenticated, onLogout }) {
     return (
         <header class="section-header">
@@ -26,10 +28,9 @@ function Header({ isAuthenticated, setIsAuthenticated, onLogout }) {
                                         <div class="dropdown-content">
                                             <Link to="/userdata">Edit profile</Link>
                                             <a className="text-danger" onClick={() => {
-                                                localStorage.removeItem('token');
-                                                localStorage.removeItem('username')
+                                                LogOut();
                                                 setIsAuthenticated(false);
-                                                localStorage.removeItem("isAuthenticated")
+                                                ShowAlertToast("Signed out!")
                                             }}>Log out</a>
                                         </div>
                                     </div>

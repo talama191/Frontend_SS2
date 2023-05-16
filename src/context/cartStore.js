@@ -28,6 +28,9 @@ const useStore = create(
                 const updatedCart = [...products];
                 itemCart.quantity = quantity;
                 set({ products: updatedCart });
+            },
+            clearCart: () => {
+                set({ products: [] });
             }
         }),
         {
