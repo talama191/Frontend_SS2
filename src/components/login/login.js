@@ -10,7 +10,7 @@ import { http } from "../../helpers/request";
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
 import { toast } from "react-toastify";
-import { ShowSuccessToast } from "../../service/ToastService";
+import { ShowSuccessToast } from "../../services/ToastService";
 const Login = ({ isAuthenticated, setIsAuthenticated }) => {
 
     const paperStyle = { padding: 20, height: '73vh', width: "460px", margin: "0 auto" }

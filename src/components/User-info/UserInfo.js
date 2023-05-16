@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GetUserDetailByUserName } from '../../service/Services';
+import { GetUserDetailByUserName } from '../../services/Services';
 function UserData({ }) {
   const [userData, setUserData] = useState([]);
 
