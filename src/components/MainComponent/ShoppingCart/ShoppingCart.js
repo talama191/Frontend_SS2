@@ -11,11 +11,11 @@ function ShoppingCart() {
     // const [cartLines, setCartLines] = useState([]);
     var products_temp = [];
     var cartLines_temp = [];
-    const [products,setProducts]=useState([]);
-    const [cartLines,setCartLines]=useState([]);
+    const [products, setProducts] = useState([]);
+    const [cartLines, setCartLines] = useState([]);
     const removeFromCart = useStore(state => state.removeFromCart);
     const clearCart = useStore(state => state.clearCart);
-    const [updateValue,setUpdate]=useState(0);
+    const [updateValue, setUpdate] = useState(0);
     useEffect(() => {
         getCartForUser();
 
@@ -36,12 +36,12 @@ function ShoppingCart() {
         const cart_lines_response = await GetCartLinesByCartID(cart_id);
         cartLines_temp = cart_lines_response.data;
 
-        products_temp.splice(0,products_temp.length);
+        products_temp.splice(0, products_temp.length);
         for (var i = 0; i < cartLines_temp.length; i++) {
             var productResponse = await GetProductByID(cartLines_temp[i].product_id);
             products_temp.push(productResponse.response.data);
         }
-        setUpdate(updateValue+1);
+        setUpdate(updateValue + 1);
         console.log(products_temp);
     }
 
@@ -132,12 +132,12 @@ function ShoppingCart() {
 
                                     <div class="d-flex justify-content-between">
                                         <p class="mb-2">TAX:</p>
-                                        <p class="mb-2" style={{ color: `red` }}>$14.00</p>
+                                        <p class="mb-2" style={{ color: `red` }}>${(Number(totalPrices.toFixed(2)) * 10 / 100)}</p>
                                     </div>
                                     <hr />
                                     <div class="d-flex justify-content-between">
                                         <p class="mb-2">Final price:</p>
-                                        <p class="mb-2 fw-bold">${(Number(totalPrices.toFixed(2)) + 14).toFixed(2)}</p>
+                                        <p class="mb-2 fw-bold">${(Number(totalPrices.toFixed(2)) + (Number(totalPrices.toFixed(2)) * 10 / 100)).toFixed(2)}</p>
                                     </div>
 
                                     <div class="mt-3">
