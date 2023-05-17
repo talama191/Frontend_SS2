@@ -1,49 +1,91 @@
 import ProductList from "../ProductPage/ProductList/ProductList";
 import CartItem from "./CartItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useStore from "../../../context/cartStore";
 import useCart from "../../../custom/useCart";
+import { GetCartLinesByCartID, GetCurrentCartLine as GetCurrentCart } from "../../../services/CartServices";
+import { GetProductByID } from "../../../services/Services";
 function ShoppingCart() {
 
-    const [products, setProducts] = useState(useStore((state) => state.products));
-
+    // const [products, setProducts] = useState([]);
+    // const [cartLines, setCartLines] = useState([]);
+    var products_temp = [];
+    var cartLines_temp = [];
+    const [products,setProducts]=useState([]);
+    const [cartLines,setCartLines]=useState([]);
     const removeFromCart = useStore(state => state.removeFromCart);
     const clearCart = useStore(state => state.clearCart);
+    const [updateValue,setUpdate]=useState(0);
+    useEffect(() => {
+        getCartForUser();
+
+    }, []);
+    useEffect(() => {
+        setProducts(products_temp);
+        setCartLines(cartLines_temp);
+        console.log(products);
+        console.log(products_temp);
+    }, [updateValue]);
+    async function getCartForUser() {
+        var response = await GetCurrentCart();
+        if (response.data !== undefined) {
+            await getCartLinesForUser(response.data.cart_id)
+        }
+    }
+    async function getCartLinesForUser(cart_id) {
+        const cart_lines_response = await GetCartLinesByCartID(cart_id);
+        cartLines_temp = cart_lines_response.data;
+
+        products_temp.splice(0,products_temp.length);
+        for (var i = 0; i < cartLines_temp.length; i++) {
+            var productResponse = await GetProductByID(cartLines_temp[i].product_id);
+            products_temp.push(productResponse.response.data);
+        }
+        setUpdate(updateValue+1);
+        console.log(products_temp);
+    }
+
     function clearCartFunction() {
         clearCart();
     }
     function handleQuantityChange(productId, newQuantity) {
-        console.log('asda');
-
-        setProducts(products => {
-            return products.map(product => {
-                if (product.id === productId) {
-                    return { ...product, quantity: newQuantity };
-                }
-                return product;
-            });
-        });
+        // setProducts(products => {
+        //     return products.map(product => {
+        //         if (product.id === productId) {
+        //             return { ...product, quantity: newQuantity };
+        //         }
+        //         return product;
+        //     });
+        // });
 
     }
     const handleCartChange = (productId) => {
-        removeFromCart(productId);
-        setProducts((products) => {
-            return products.filter((product) => product.id !== productId);
-        });
+        // removeFromCart(productId);
+        // setProducts((products) => {
+        //     return products.filter((product) => product.id !== productId);
+        // });
     };
     function handlePriceChange(productId, newPrice) {
-        setProducts(products => {
-            return products.map(product => {
-                if (product.id === productId) {
-                    return { ...product, totalPrice: newPrice };
-                }
-                return product;
-            });
-        });
+        // setProducts(products => {
+        //     return products.map(product => {
+        //         if (product.id === productId) {
+        //             return { ...product, totalPrice: newPrice };
+        //         }
+        //         return product;
+        //     });
+        // });
     }
-    const totalPrices = products.reduce((total, product) => {
-        return total + product.totalPrice;
+    const totalPrices = products_temp.reduce((total, product) => {
+        // return total + product.totalPrice;
+        return 0;
     }, 0);
+    function getCartLineByProductID(id) {
+        for (var i = 0; i < cartLines.length; i++) {
+            if (cartLines.id === id) {
+                return cartLines[i];
+            }
+        }
+    }
     return (
         <div>
             <section class="bg-light my-5">
@@ -60,6 +102,7 @@ function ShoppingCart() {
                                             onQuantityChange={handleQuantityChange}
                                             onPriceChange={handlePriceChange}
                                             onRemove={handleCartChange}
+                                            cartLine={getCartLineByProductID(product.id)}
                                         />
                                     ))}
                                 </div>

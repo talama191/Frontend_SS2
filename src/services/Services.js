@@ -1,7 +1,7 @@
 import { http } from "../helpers/request";
 
 
-const BASE_URL = 'http://localhost:8080'
+export const BASE_URL = 'http://localhost:8080'
 
 export const GetProducts = fetch(`${BASE_URL}/products`)
     .then(response => {
@@ -123,6 +123,7 @@ export const GetUserDetailByUserName = async () => {
 }
 export function LogOut() {
     localStorage.removeItem('token');
-    localStorage.removeItem('username')
-    localStorage.removeItem("isAuthenticated")
+    localStorage.removeItem('username');
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("user_id");
 }

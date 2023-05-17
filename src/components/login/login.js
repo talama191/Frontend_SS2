@@ -9,6 +9,7 @@ import { http } from "../../helpers/request";
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
 import { ShowAlertToast, ShowSuccessToast } from "../../services/ToastService";
+import jwtDecode from "jwt-decode";
 const Login = ({ isAuthenticated, setIsAuthenticated }) => {
 
     const paperStyle = { padding: 20, height: '73vh', width: "460px", margin: "0 auto" }
@@ -33,9 +34,11 @@ const Login = ({ isAuthenticated, setIsAuthenticated }) => {
         if (data.status_code === 200) {
             console.log(data);
             const token = data.data.accessToken;
+            var tokenDecoded=jwtDecode(token);
             localStorage.setItem('token', token);
             localStorage.setItem('username', values.username)
             localStorage.setItem('isAuthenticated', "true")
+            localStorage.setItem('user_id',tokenDecoded.id);
             setIsAuthenticated(true);
             navigate('/');
             setTimeout(() => {

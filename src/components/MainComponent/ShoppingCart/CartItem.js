@@ -6,7 +6,7 @@ function CartItem(props) {
     const [selectedQuantity, setSelectedQuantity] = useState(props.quantity);
     const [totalPrice, setTotalPrice] = useState((selectedQuantity * Number(props.price)).toFixed(2));
     const [product, setProduct] = useState({});
-    const type = props.type.join(", ");
+    // const type = props.type.join(", ");
     function handleQuantityChange(event) {
         const quantity = event.target.value;
         updateQuantity(props.id, quantity);
@@ -18,11 +18,12 @@ function CartItem(props) {
         const totalPrice = (selectedQuantity * pricePerItem).toFixed(2);
         setTotalPrice(totalPrice);
         props.onPriceChange(props.id, Number(totalPrice));
-        console.log("rerun");
+
     }, [selectedQuantity, props.price]);
     useEffect(() => {
         GetProduct(props.id);
-    });
+        console.log(props.cartLine);
+    },[]);
     // GetProductByID(props.id);
     async function GetProduct(id) {
         try {
@@ -43,7 +44,7 @@ function CartItem(props) {
                 <div class="me-lg-5">
                     <div class="d-flex">
                         <img
-                            src={props.imgSrc}
+                            src={props.img1}
                             class="border rounded me-3"
                             style={{ width: `96px`, height: `96px` }}
                         />

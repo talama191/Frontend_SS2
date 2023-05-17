@@ -10,7 +10,6 @@ http.interceptors.request.use(function (config) {
     let token = localStorage.getItem('token');
     if (token !== null) {
         var tokenDecoded=jwtDecode(token);
-        console.log(tokenDecoded);
         config.headers.Authorization = `Bearer ${token}`
     }
     // config.headers.Authorization=null;

@@ -2,21 +2,26 @@ import { Link } from "react-router-dom";
 import useStore from "../context/cartStore";
 import { memo } from "react";
 import { ShowSuccessToast } from "../services/ToastService";
+import { AddSingleProductToCart } from "../services/CartServices";
 
 function Product(props) {
     const addToCart = useStore((state) => state.addToCart)
 
     const handleAddToCart = () => {
-        const product = {
-            id: props.id,
-            name: props.name,
-            price: props.price,
-            imgSrc: props.img1,
-            quantity: 1,
-            type: ["yellow", "XL"],
+        // const product = {
+        //     id: props.id,
+        //     name: props.name,
+        //     price: props.price,
+        //     imgSrc: props.img1,
+        //     quantity: 1,
+        //     type: ["yellow", "XL"],
+        // }
+        // addToCart(product)
+        var cart_line = AddSingleProductToCart(props.id);
+        console.log(cart_line);
+        if (cart_line.data !== undefined||cart_line.data!==null) {
+            ShowSuccessToast(`Add ${props.name} to cart!`)
         }
-        addToCart(product)
-        ShowSuccessToast(`Add ${props.name} to cart!`)
     }
 
     return (
