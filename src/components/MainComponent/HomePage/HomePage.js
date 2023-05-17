@@ -62,41 +62,6 @@ function HomePage() {
                     </nav>
                 </div>
             </section>
-            {/* <section>
-                <div class="container my-5">
-                    <header class="mb-4">
-                        <h3>New products</h3>
-                    </header>
-                    //productlist
-                </div>
-            </section> */}
-            {/* <section>
-                <div class="container">
-                    <div class="card p-4 bg-primary">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h4 class="mb-0 text-white">Best products and brands in store</h4>
-                                <p class="mb-0 text-white-50">
-                                    Trendy products and text to build on the card title
-                                </p>
-                            </div>
-                            <div class="col-auto">
-                                <a class="btn btn-white text-primary shadow-0" href="#"
-                                >Discover</a
-                                >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section> */}
-            {/* <section>
-                <div class="container my-5">
-                    <header class="mb-4">
-                        <h3>Recommended</h3>
-                    </header>
-                </div>
-
-            </section> */}
         </div>
     )
 

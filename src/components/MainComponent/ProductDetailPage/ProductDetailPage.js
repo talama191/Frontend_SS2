@@ -15,6 +15,7 @@ function ProductDetailPage() {
         try {
             var result = await GetProductByID(id);
             setProduct(result.response.data);
+            console.log("rerun")
         } catch (error) {
             console.log(error);
         }

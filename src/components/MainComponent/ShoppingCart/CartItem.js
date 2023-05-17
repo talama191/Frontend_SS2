@@ -1,9 +1,11 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useStore from "../../../context/cartStore";
+import { GetProductByID } from "../../../services/Services";
 function CartItem(props) {
     const [selectedQuantity, setSelectedQuantity] = useState(props.quantity);
     const [totalPrice, setTotalPrice] = useState((selectedQuantity * Number(props.price)).toFixed(2));
+    const [product, setProduct] = useState({});
     const type = props.type.join(", ");
     function handleQuantityChange(event) {
         const quantity = event.target.value;
@@ -16,7 +18,22 @@ function CartItem(props) {
         const totalPrice = (selectedQuantity * pricePerItem).toFixed(2);
         setTotalPrice(totalPrice);
         props.onPriceChange(props.id, Number(totalPrice));
+        console.log("rerun");
     }, [selectedQuantity, props.price]);
+    useEffect(() => {
+        GetProduct(props.id);
+    });
+    // GetProductByID(props.id);
+    async function GetProduct(id) {
+        try {
+            var result = await GetProductByID(id);
+            setProduct(result.response.data);
+            // console.log(result);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     function handleRemoveItem() {
         props.onRemove(props.id);
     };
@@ -32,9 +49,9 @@ function CartItem(props) {
                         />
                         <div class="">
                             <a href="#" class="nav-link"
-                            >{props.name}</a
+                            >{product.name}</a
                             >
-                            <p class="text-muted">{type}</p>
+                            <p class="text-muted">{product.short_description}</p>
                         </div>
                     </div>
                 </div>
@@ -54,7 +71,7 @@ function CartItem(props) {
                 <div class="">
                     <text class="h6">${totalPrice}</text> <br />
                     <small class="text-muted text-nowrap">
-                        {props.price} / per item
+                        {product.price} / per item
                     </small>
                 </div>
             </div>
