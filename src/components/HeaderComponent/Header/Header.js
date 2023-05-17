@@ -16,7 +16,7 @@ function Header({ isAuthenticated, setIsAuthenticated, onLogout }) {
                     <div class="row gy-3 align-items-center">
 
                         <Brand />
-                        <div class="order-lg-last col-lg-4 col-sm-8 col-5 ml-auto ">
+                        <div class="order-lg-last col-9 ml-auto ">
                             <div class="float-end">
 
                                 {isAuthenticated ? (
@@ -39,10 +39,10 @@ function Header({ isAuthenticated, setIsAuthenticated, onLogout }) {
                                 ) : <Link to="/login"> <HeaderButton name="Sign in" logo="fa fa-user"></HeaderButton></Link>}
 
                             </div>
-                            <HeaderButton name="Favorites" logo="fa fa-heart" />
-                            <Link to='/cart'> <HeaderButton name="My Cart" logo="fa fa-shopping-cart" /></Link>
+                            <div class="float-end">
+                                <Link to='/cart'> <HeaderButton name="My Cart" logo="fa fa-shopping-cart" /></Link>
+                            </div>
                         </div>
-                        {/* <SearchForm /> */}
                     </div>
                 </div>
             </section>
