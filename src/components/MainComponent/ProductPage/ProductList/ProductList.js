@@ -34,17 +34,6 @@ function ProductList(props) {
         }
     }
     totalPages = totalPage;
-    // Filter and sort products
-    // let filteredProducts = products;
-    // if (filterApplied) {
-    //     filteredProducts = products.filter(
-    //         (product) => product.price >= minPrice && product.price <= maxPrice
-    //     );
-    // }
-
-
-
-
     return (
         <>
             <div className="row">

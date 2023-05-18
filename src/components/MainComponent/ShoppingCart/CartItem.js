@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useStore from "../../../context/cartStore";
 import { GetProductByID } from "../../../services/Services";
 import { ModifyProductOfCart } from "../../../services/CartServices";
+import { NavLink } from "react-router-dom";
 function CartItem(props) {
     const [selectedQuantity, setSelectedQuantity] = useState(props.quantity);
     const [totalPrice, setTotalPrice] = useState((selectedQuantity * Number(props.price)).toFixed(2));
@@ -45,9 +46,10 @@ function CartItem(props) {
                             style={{ width: `96px`, height: `96px` }}
                         />
                         <div class="">
-                            <a href="#" class="nav-link"
-                            >{product.name}</a
-                            >
+                            <NavLink to={`/product/${product.id}`}>
+                                <a class="nav-link" >{product.name}</a>
+                            </NavLink>
+
                             <p class="text-muted">{product.short_description}</p>
                         </div>
                     </div>

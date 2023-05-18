@@ -40,7 +40,7 @@ function Header({ isAuthenticated, setIsAuthenticated, onLogout }) {
 
                             </div>
                             <div class="float-end">
-                                <Link to=''> <HeaderButton name="My Order" logo="fa fa-list" /></Link>
+                                <Link to='/order_list'> <HeaderButton name="My Order" logo="fa fa-list" /></Link>
                                 <Link to='/cart'> <HeaderButton name="My Cart" logo="fa fa-shopping-cart" /></Link>
                             </div>
                         </div>

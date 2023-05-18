@@ -15,6 +15,7 @@ import ProductDetailPage from './components/MainComponent/ProductDetailPage/Prod
 import UserData from './components/User-info/UserInfo';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import OrderList from './components/MainComponent/OrderPage/OrderList';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [p, setP] = useState('')
@@ -42,6 +43,7 @@ function App() {
         </Route>
         <Route path="/userdata" element={<UserData></UserData>} >
         </Route>
+        <Route path="/order_list" element={<OrderList></OrderList>}></Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
         <Route path="/product/:id" Component={ProductDetailPage} element={<ProductDetailPage></ProductDetailPage>}></Route>
         <Route exact path="/" element={<HomePage isAuthenticated={isAuthenticated} />} />

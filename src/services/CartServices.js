@@ -66,3 +66,26 @@ export const ClearCart = async (cart_id) => {
     }
     return data;
 }
+export const MakeOrder = async (cart_id) => {
+    var user_id = localStorage.getItem("user_id");
+    if (user_id === null || user_id === undefined) {
+        ShowAlertToast("Please login!")
+        return null;
+    }
+    const { data } = await http.post(`/cart/set_status?cart_id=${cart_id}&cart_status=${1}`);
+    console.log(data);
+    if (data.status_code === 200) {
+        ShowSuccessToast("Order Sent!");
+    }
+    return data;
+}
+export const GetCartsForUser = async () => {
+    var user_id = localStorage.getItem("user_id");
+    if (user_id === null || user_id === undefined) {
+        ShowAlertToast("Please login!")
+        return null;
+    }
+    const { data } = await http.get(`/cart?user_id=${user_id}`);
+
+    return data;
+}

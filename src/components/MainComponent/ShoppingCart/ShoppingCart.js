@@ -3,7 +3,7 @@ import CartItem from "./CartItem";
 import { useEffect, useState } from "react";
 import useStore from "../../../context/cartStore";
 import useCart from "../../../custom/useCart";
-import { GetProductsByCartID, GetCurrentCartLine as GetCurrentCart, GetCartLinesByCartID, ClearCart } from "../../../services/CartServices";
+import { GetProductsByCartID, GetCurrentCartLine as GetCurrentCart, GetCartLinesByCartID, ClearCart, MakeOrder } from "../../../services/CartServices";
 
 function ShoppingCart() {
 
@@ -40,28 +40,6 @@ function ShoppingCart() {
         }
         setTotalPrice(total);
     }
-    function handleQuantityChange(productId, newQuantity) {
-        // setProducts(products => {
-        //     return products.map(product => {
-        //         if (product.id === productId) {
-        //             return { ...product, quantity: newQuantity };
-        //         }
-        //         return product;
-        //     });
-        // });
-
-    }
-    const handleCartChange = (productId) => {
-        // removeFromCart(productId);
-        // setProducts((products) => {
-        //     return products.filter((product) => product.id !== productId);
-        // });
-    };
-
-    // const totalPrices = products_temp.reduce((total, product) => {
-    //     // return total + product.totalPrice;
-    //     return 0;
-    // }, 0);
     async function getCartLineByProductID(id) {
         for (var i = 0; i < cartLines.length; i++) {
             if (cartLines.id === id) {
@@ -71,6 +49,10 @@ function ShoppingCart() {
     }
     async function clearCart() {
         const response = await ClearCart(cart.cart_id);
+        updateCartFunction();
+    }
+    async function makeOrder() {
+        const response = await MakeOrder(cart.cart_id);
         updateCartFunction();
     }
     return (
@@ -86,9 +68,7 @@ function ShoppingCart() {
                                         <CartItem
                                             key={cartLine.product_id}
                                             {...cartLine}
-                                            onQuantityChange={handleQuantityChange}
                                             onPriceChange={handlePriceChange}
-                                            onRemove={handleCartChange}
                                             onUpdateCart={updateCartFunction}
                                         />
                                     ))}
@@ -130,7 +110,7 @@ function ShoppingCart() {
                                     <div class="mt-3">
                                         {cartLines.length !== 0 ? (
                                             <div>
-                                                <a href="#" class="btn btn-success w-100 shadow-0 mb-2">
+                                                <a onClick={makeOrder} class="btn btn-success w-100 shadow-0 mb-2">
                                                     Make Order
                                                 </a>
                                                 <a onClick={clearCart} class="btn btn-danger w-100 shadow-0 mb-2">

@@ -156,21 +156,6 @@ function ProductPage() {
                                         </div>
                                     </div>
                                 </article>
-
-                                {/* <article class="filter-group">
-                                    <header class="card-header">
-                                        <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside2">
-                                            <i class="icon-control fa fa-chevron-down"></i>  Price
-                                        </a>
-                                    </header>
-                                    <div class="collapse show" id="collapse_aside2">
-                                        <div>
-                                            <PriceRange onPriceRangeChange={handlePriceRangeChange}></PriceRange>
-                                            <button className="btn w-100" type="button" onClick={resetFilter}>Reset</button>
-                                            <button class="btn w-100" type="button" onClick={handleFilterClick} >Apply</button>
-                                        </div>
-                                    </div>
-                                </article> */}
                             </div>
 
 
