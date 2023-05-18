@@ -21,7 +21,7 @@ const Signup = () => {
         username: '',
         email: '',
         gender: '',
-        phoneNumber: '',
+        phone_number: '',
         password: '',
         confirmPassword: '',
         termsAndConditions: false
@@ -30,7 +30,7 @@ const Signup = () => {
         username: Yup.string().min(3, "It' s too short").required("Required"),
         email: Yup.string().email("Enter valid email").required("Required"),
         gender: Yup.string().oneOf(["1", "0"], "Required").required('Required'),
-        phoneNumber: Yup.number().typeError("Enter valid Phone number").required('Required'),
+        phone_number: Yup.number().typeError("Enter valid Phone number").required('Required'),
         password: Yup.string().min(8, "Password minimum length should be 8").required('Required'),
         confirmPassword: Yup.string().oneOf([Yup.ref('password')], "Password not matched").required("Required"),
         termsAndConditions: Yup.string().oneOf(["true"], "Accept terms & conditions")
@@ -83,8 +83,8 @@ const Signup = () => {
                                 </Field >
                             </FormControl>
                             <FormHelperText><ErrorMessage name='gender' /></FormHelperText>
-                            <Field as={TextField} name="phoneNumber" fullWidth label='Phone Number'
-                                placeholder="Enter your phone number" helperText={<ErrorMessage name="phoneNumber" />} />
+                            <Field as={TextField} name="phone_number" fullWidth label='Phone Number'
+                                placeholder="Enter your phone number" helperText={<ErrorMessage name="phone_number" />} />
                             <Field as={TextField} name="password" fullWidth label='Password' type="password" placeholder="Enter your password "
                                 helperText={<ErrorMessage name="password" />} />
                             <Field as={TextField} name="confirmPassword" fullWidth label='Confirm Password' type="password" placeholder="Confirm your password "
