@@ -3,50 +3,42 @@ import CartItem from "./CartItem";
 import { useEffect, useState } from "react";
 import useStore from "../../../context/cartStore";
 import useCart from "../../../custom/useCart";
-import { GetCartLinesByCartID, GetCurrentCartLine as GetCurrentCart } from "../../../services/CartServices";
-import { GetProductByID } from "../../../services/Services";
+import { GetProductsByCartID, GetCurrentCartLine as GetCurrentCart, GetCartLinesByCartID, ClearCart } from "../../../services/CartServices";
+
 function ShoppingCart() {
 
-    // const [products, setProducts] = useState([]);
-    // const [cartLines, setCartLines] = useState([]);
-    var products_temp = [];
-    var cartLines_temp = [];
-    const [products,setProducts]=useState([]);
-    const [cartLines,setCartLines]=useState([]);
+    var cart_id = 0;
+    const [cart, setCart] = useState({});
+    const [cartLines, setCartLines] = useState([]);
     const removeFromCart = useStore(state => state.removeFromCart);
-    const clearCart = useStore(state => state.clearCart);
-    const [updateValue,setUpdate]=useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
+    // const clearCart = useStore(state => state.clearCart);
+    const [updateValue, setUpdate] = useState(0);
     useEffect(() => {
         getCartForUser();
-
-    }, []);
-    useEffect(() => {
-        setProducts(products_temp);
-        setCartLines(cartLines_temp);
-        console.log(products);
-        console.log(products_temp);
     }, [updateValue]);
     async function getCartForUser() {
+        console.log("update");
         var response = await GetCurrentCart();
+        cart_id = response.data.cart_id;
+        setCart(response.data);
         if (response.data !== undefined) {
-            await getCartLinesForUser(response.data.cart_id)
+            const cart_lines_data = await GetCartLinesByCartID(response.data.cart_id).then((data) => {
+                setCartLines(data.data);
+                handlePriceChange(data.data);
+            })
         }
     }
-    async function getCartLinesForUser(cart_id) {
-        const cart_lines_response = await GetCartLinesByCartID(cart_id);
-        cartLines_temp = cart_lines_response.data;
 
-        products_temp.splice(0,products_temp.length);
-        for (var i = 0; i < cartLines_temp.length; i++) {
-            var productResponse = await GetProductByID(cartLines_temp[i].product_id);
-            products_temp.push(productResponse.response.data);
-        }
-        setUpdate(updateValue+1);
-        console.log(products_temp);
+    function updateCartFunction() {
+        setUpdate(updateValue + 1);
     }
-
-    function clearCartFunction() {
-        clearCart();
+    function handlePriceChange(cart_lines_data) {
+        var total = 0;
+        for (var i = 0; i < cart_lines_data.length; i++) {
+            total += cart_lines_data[i].quantity * cart_lines_data[i].product.price;
+        }
+        setTotalPrice(total);
     }
     function handleQuantityChange(productId, newQuantity) {
         // setProducts(products => {
@@ -65,26 +57,21 @@ function ShoppingCart() {
         //     return products.filter((product) => product.id !== productId);
         // });
     };
-    function handlePriceChange(productId, newPrice) {
-        // setProducts(products => {
-        //     return products.map(product => {
-        //         if (product.id === productId) {
-        //             return { ...product, totalPrice: newPrice };
-        //         }
-        //         return product;
-        //     });
-        // });
-    }
-    const totalPrices = products_temp.reduce((total, product) => {
-        // return total + product.totalPrice;
-        return 0;
-    }, 0);
-    function getCartLineByProductID(id) {
+
+    // const totalPrices = products_temp.reduce((total, product) => {
+    //     // return total + product.totalPrice;
+    //     return 0;
+    // }, 0);
+    async function getCartLineByProductID(id) {
         for (var i = 0; i < cartLines.length; i++) {
             if (cartLines.id === id) {
                 return cartLines[i];
             }
         }
+    }
+    async function clearCart() {
+        const response = await ClearCart(cart.cart_id);
+        updateCartFunction();
     }
     return (
         <div>
@@ -95,14 +82,14 @@ function ShoppingCart() {
                             <div class="card border shadow-0">
                                 <div class="m-4">
                                     <h4 class="card-title mb-4">Your shopping cart</h4>
-                                    {products.map(product => (
+                                    {cartLines.map(cartLine => (
                                         <CartItem
-                                            key={product.id}
-                                            {...product}
+                                            key={cartLine.product_id}
+                                            {...cartLine}
                                             onQuantityChange={handleQuantityChange}
                                             onPriceChange={handlePriceChange}
                                             onRemove={handleCartChange}
-                                            cartLine={getCartLineByProductID(product.id)}
+                                            onUpdateCart={updateCartFunction}
                                         />
                                     ))}
                                 </div>
@@ -127,26 +114,31 @@ function ShoppingCart() {
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <p class="mb-2">Total price:</p>
-                                        <p class="mb-2">${totalPrices.toFixed(2)}</p>
+                                        <p class="mb-2">${totalPrice.toFixed(2)}</p>
                                     </div>
 
                                     <div class="d-flex justify-content-between">
                                         <p class="mb-2">TAX:</p>
-                                        <p class="mb-2" style={{ color: `red` }}>$14.00</p>
+                                        <p class="mb-2" style={{ color: `red` }}>$0</p>
                                     </div>
                                     <hr />
                                     <div class="d-flex justify-content-between">
                                         <p class="mb-2">Final price:</p>
-                                        <p class="mb-2 fw-bold">${(Number(totalPrices.toFixed(2)) + 14).toFixed(2)}</p>
+                                        <p class="mb-2 fw-bold">${(Number(totalPrice.toFixed(2))).toFixed(2)}</p>
                                     </div>
 
                                     <div class="mt-3">
-                                        <a href="#" class="btn btn-success w-100 shadow-0 mb-2">
-                                            Make Order
-                                        </a>
-                                        <a href="" onClick={clearCartFunction} class="btn btn-danger w-100 shadow-0 mb-2">
-                                            Clear Cart
-                                        </a>
+                                        {cartLines.length !== 0 ? (
+                                            <div>
+                                                <a href="#" class="btn btn-success w-100 shadow-0 mb-2">
+                                                    Make Order
+                                                </a>
+                                                <a onClick={clearCart} class="btn btn-danger w-100 shadow-0 mb-2">
+                                                    Clear Cart
+                                                </a>
+                                            </div >) : (<div></div>)
+                                        }
+
                                         <a href="#" class="btn btn-light w-100 border mt-2">
                                             Back to shop
                                         </a>

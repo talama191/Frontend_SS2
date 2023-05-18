@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import useStore from "../../../context/cartStore";
 import { GetProductByID } from "../../../services/Services";
+import { ModifyProductOfCart } from "../../../services/CartServices";
 function CartItem(props) {
     const [selectedQuantity, setSelectedQuantity] = useState(props.quantity);
     const [totalPrice, setTotalPrice] = useState((selectedQuantity * Number(props.price)).toFixed(2));
@@ -9,34 +10,29 @@ function CartItem(props) {
     // const type = props.type.join(", ");
     function handleQuantityChange(event) {
         const quantity = event.target.value;
-        updateQuantity(props.id, quantity);
+        // updateQuantity(props.id, quantity);
         setSelectedQuantity(quantity);
+        modifyProductQuantity(quantity);
     }
-    const updateQuantity = useStore(state => state.setItemQuantity);
+    // const updateQuantity = useStore(state => state.setItemQuantity);
     useEffect(() => {
-        const pricePerItem = Number(props.price);
+        const pricePerItem = Number(props.product.price);
         const totalPrice = (selectedQuantity * pricePerItem).toFixed(2);
         setTotalPrice(totalPrice);
-        props.onPriceChange(props.id, Number(totalPrice));
+        // props.onPriceChange(props.id, Number(totalPrice));
 
-    }, [selectedQuantity, props.price]);
+    }, [selectedQuantity]);
     useEffect(() => {
-        GetProduct(props.id);
-        console.log(props.cartLine);
-    },[]);
-    // GetProductByID(props.id);
-    async function GetProduct(id) {
-        try {
-            var result = await GetProductByID(id);
-            setProduct(result.response.data);
-            // console.log(result);
-        } catch (error) {
-            console.log(error);
-        }
+        setProduct(props.product);
+        setSelectedQuantity(props.quantity);
+    }, []);
+    async function modifyProductQuantity(quantity) {
+        await ModifyProductOfCart(props.product_id, quantity);
+        props.onUpdateCart();
     }
-
-    function handleRemoveItem() {
-        props.onRemove(props.id);
+    async function handleRemoveItem() {
+        await ModifyProductOfCart(props.product_id, 0);
+        props.onUpdateCart();
     };
     return (
         <div class="row gy-3 mb-4">
@@ -44,7 +40,7 @@ function CartItem(props) {
                 <div class="me-lg-5">
                     <div class="d-flex">
                         <img
-                            src={props.img1}
+                            src={product.img1}
                             class="border rounded me-3"
                             style={{ width: `96px`, height: `96px` }}
                         />
@@ -61,13 +57,8 @@ function CartItem(props) {
                 class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap"
             >
                 <div class="">
-                    <select style={{ width: `100px` }} class="form-select me-4" value={selectedQuantity} onChange={handleQuantityChange}>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
+                    <input style={{ width: `100px` }} class="form-control me-4" value={selectedQuantity} onChange={handleQuantityChange}>
+                    </input>
                 </div>
                 <div class="">
                     <text class="h6">${totalPrice}</text> <br />
