@@ -53,13 +53,13 @@ function OrderCard(props) {
                     <h5 class="ml-auto" >Total price: ${totalPrice}</h5>
                 </div>
             </div>
-            <article class="filter-group border rounded-6 bg-warning bg-gradient ">
-                <header class="card-header">
+            <article class="filter-group border rounded-6 bg-light bg-gradient ">
+                <header class="card-header ">
                     <a href="#" class="title" data-bs-toggle="collapse" data-bs-target={`#collapse-order-card-${props.cart_id}`}>
                         <i class="icon-control fa fa-chevron-down"></i>Order detail
                     </a>
                 </header>
-                <div class="collapse hide" id={`collapse-order-card-${props.cart_id}`}>
+                <div class="collapse hide " id={`collapse-order-card-${props.cart_id}`}>
                     {cartLines.map((cartLine) => (
                         <OrderProductSummary
                             key={cartLine.product_id}{...cartLine} />

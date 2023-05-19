@@ -2,12 +2,12 @@ import { http } from "../helpers/request"
 import { GetProductByID } from "./Services";
 import { ShowAlertToast, ShowSuccessToast } from "./ToastService";
 
-export const AddSingleProductToCart = async (id) => {
+export const AddProductToCart = async (id, quantity) => {
     if (localStorage.getItem("user_id") === null || localStorage.getItem("user_id") === undefined) {
         ShowAlertToast("Please login!")
         return null;
     }
-    const { data } = await http.post(`/cart/modify_add_single?user_id=${localStorage.getItem("user_id")}&product_id=${id}`);
+    const { data } = await http.post(`/cart/modify_add_single?user_id=${localStorage.getItem("user_id")}&product_id=${id}&quantity=${quantity}`);
     console.log(data);
     return data;
 }

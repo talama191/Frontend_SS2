@@ -59,7 +59,7 @@ function CartItem(props) {
                 class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap"
             >
                 <div class="">
-                    <input style={{ width: `100px` }} class="form-control me-4" value={selectedQuantity} onChange={handleQuantityChange}>
+                    <input type="number" style={{ width: `100px` }} class="form-control me-4" value={selectedQuantity} onChange={handleQuantityChange}>
                     </input>
                 </div>
                 <div class="">

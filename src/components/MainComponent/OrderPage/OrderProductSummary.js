@@ -13,8 +13,8 @@ function OrderProductSummary(props) {
             </Link>
 
             <span class="col-lg-3 text-center mr-auto">Quantity: {props.quantity}</span>
-            <span class="col-lg-2 text-center ml-auto">Price: {props.product.price}</span>
-            <span class="col-lg-3 text-right">Total price: {props.product.price * props.quantity}</span>
+            <span class="col-lg-3 text-center ml-auto">Price: {props.product.price}</span>
+            <span class="col-lg-3 text-left">Total price: {props.product.price * props.quantity}</span>
         </div>
     )
 }

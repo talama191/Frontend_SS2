@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useStore from "../context/cartStore";
 import { memo } from "react";
 import { ShowSuccessToast } from "../services/ToastService";
-import { AddSingleProductToCart } from "../services/CartServices";
+import { AddProductToCart } from "../services/CartServices";
 
 function Product(props) {
     const addToCart = useStore((state) => state.addToCart)
@@ -17,7 +17,7 @@ function Product(props) {
         //     type: ["yellow", "XL"],
         // }
         // addToCart(product)
-        var cart_line = AddSingleProductToCart(props.id);
+        var cart_line = AddProductToCart(props.id,1);
         console.log(cart_line);
         if (cart_line.data !== undefined||cart_line.data!==null) {
             ShowSuccessToast(`Add ${props.name} to cart!`)
@@ -37,6 +37,12 @@ function Product(props) {
                     <Link to={`/product/${props.id}`} class="title mb-2">
                         {props.name}
                     </Link>
+                    <p>
+                        Category: {props.category.name}
+                    </p>
+                    <p>
+                        Brand: {props.brand.name}
+                    </p>
 
                     <button onClick={handleAddToCart} class="btn btn-primary">
                         Add to cart

@@ -1,9 +1,16 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 
 function Brand(props) {
     const [isChecked, setChecked] = useState(false);
     let searchFilter = props.searchFilter;
+
+    useEffect(() => {
+        const found = searchFilter.brand_ids.find((element) => element === props.id);
+        if (found !== undefined) {
+            setChecked(true);
+        }
+    }, [])
 
     function addCategory() {
         if (!isChecked) {

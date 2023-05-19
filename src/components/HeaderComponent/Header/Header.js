@@ -39,10 +39,11 @@ function Header({ isAuthenticated, setIsAuthenticated, onLogout }) {
                                 ) : <Link to="/login"> <HeaderButton name="Sign in" logo="fa fa-user"></HeaderButton></Link>}
 
                             </div>
-                            <div class="float-end">
+                            {isAuthenticated ? (<div class="float-end">
                                 <Link to='/order_list'> <HeaderButton name="My Order" logo="fa fa-list" /></Link>
                                 <Link to='/cart'> <HeaderButton name="My Cart" logo="fa fa-shopping-cart" /></Link>
-                            </div>
+                            </div>) : (<div></div>)}
+
                         </div>
                     </div>
                 </div>

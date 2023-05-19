@@ -6,6 +6,15 @@ function Category(props) {
     const [isChecked, setChecked] = useState(false);
     let searchFilter = props.searchFilter;
 
+
+    useEffect(() => {
+        const found = searchFilter.category_ids.find((element) => element === props.id);
+        if (found !== undefined) {
+            setChecked(true);
+        }
+    }, [])
+
+
     function addCategory() {
         if (!isChecked) {
             searchFilter.category_ids.push(props.id);
