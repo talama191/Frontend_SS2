@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import useStore from "../../../context/cartStore";
 import useCart from "../../../custom/useCart";
 import { GetProductsByCartID, GetCurrentCartLine as GetCurrentCart, GetCartLinesByCartID, ClearCart, MakeOrder } from "../../../services/CartServices";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
+import { loadStripe } from "@stripe/stripe-js";
+import { Checkout } from "../../../services/PaymentServices";
+const stripePromise = loadStripe("pk_test_51NAPhSDNDkGZR7LmuxRsa7DgQF5G0DVELM1Sy28LyHTNpr7bfqClQq2p0T1B04gwVcwHFPhmtw954IRCdQ8tx9vl00wS698x9M");
 
 function ShoppingCart() {
 
@@ -55,6 +60,26 @@ function ShoppingCart() {
         const response = await MakeOrder(cart.cart_id);
         updateCartFunction();
     }
+
+
+    //Stripe
+    const [clientSecret, setClientSecret] = useState("");
+
+    useEffect(() => {
+        // Create PaymentIntent as soon as the page loads
+        MakeOrder();
+    }, []);
+    async function MakeOrder() {
+        var result = await Checkout(cart_id);
+        setClientSecret(result.data);
+    }
+    const appearance = {
+        theme: 'stripe',
+    };
+    const options = {
+        clientSecret,
+        appearance,
+    };
     return (
         <div>
             <section class="bg-light my-5">
@@ -137,6 +162,13 @@ function ShoppingCart() {
 
                 </div>
             </section>
+            <div className="App">
+                {clientSecret && (
+                    <Elements options={options} stripe={stripePromise}>
+                        <CheckoutForm />
+                    </Elements>
+                )}
+            </div>
         </div>)
 }
 export default ShoppingCart;
