@@ -8,6 +8,7 @@ function OrderCard(props) {
     const [cartLines, setCartLines] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     useEffect(() => {
+        console.log(props)
         var t_order = "";
         if (props.ordered_at !== null) {
             t_order = props.ordered_at.split(/[- T+.:]/);
@@ -43,6 +44,9 @@ function OrderCard(props) {
                     <span>Ordered at: {ordered_date.toString()}</span>
 
                 </div>
+                <p>Has paid: {props.hasPaid ? ("Yes") : ("No")}</p>
+                <p>Address: {props.address}</p>
+                <p>Phone number: {props.phoneNumber}</p>
                 {props.cart_status === 2 ? (
                     <div>
                         <span >Completed at: {completed_date.toString()}</span>
