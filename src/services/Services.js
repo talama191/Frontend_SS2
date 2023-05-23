@@ -1,4 +1,5 @@
 import { http } from "../helpers/request";
+import { ShowAlertToast } from "./ToastService";
 
 
 export const BASE_URL = 'http://localhost:8080'
@@ -54,6 +55,7 @@ export const SearchProduct = async (searchFilter) => {
     );
     return response;
 }
+
 export const GetTotalPageForSearch = async (searchFilter) => {
     var response = await fetch(`${BASE_URL}/products/page-count`, {
         method: 'POST',

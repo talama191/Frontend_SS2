@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import HomePage from './components/MainComponent/HomePage/HomePage';
 import Signup from './components/signup/signup';
 import ProductPage from './components/MainComponent/ProductPage/ProductPage';
-
+import EditProfile from './components/User-info/EditProfile';
 import ShoppingCart from './components/MainComponent/ShoppingCart/ShoppingCart';
 import './App.css';
 import { CartContext } from './context/cartContext';
@@ -38,6 +38,7 @@ function App() {
           <CartContext.Provider value={[p, setP]
           }>  <ShoppingCart /></CartContext.Provider>
         }></Route>
+        <Route path='/userdata/editprofile' element=<EditProfile></EditProfile> ></Route>
         <Route path='/page' element={<h1>iafjdsf</h1>}></Route>
         <Route path="/shop" element={<ProductPage></ProductPage>} >
         </Route>
