@@ -76,120 +76,99 @@ const EditProfile = () => {
     return (
 
         <div class="container n">
-        <div class="row">
-		<div class="col-12">
-			
-			<div class="my-5">
-				<h3>Edit Profile</h3>
-				<hr/>
-			</div>
-			
-			<form onSubmit={handleFormSubmit} class="file-upload">
-				<div class="row mb-5 gx-5">
-					
-					<div class="col-xxl-8 mb-5 mb-xxl-0">
-						<div class="bg-secondary-soft px-4 py-5 rounded">
-							<div class="row g-3">
-								<h4 class="mb-4 mt-0">Contact detail</h4>
-								
-								<div class="col-md-6">
-									<label class="form-label"for="fullname">Full name: </label>
-									<input
-                                    className='form-control'
-                                    type="text"
-                                    id="fullname"
-                                    value={fullname}
-                                    onChange={(e) => setFullname(e.target.value)}
-                                    required
-                                />
-								</div>
-								
-								<div class="col-md-6">
-									<label class="form-label" for="gender">Gender: </label>
-									<select
-                                        class="form-control"
-                                        id="gender"
-                                        value={gender}
-                                        onChange={(e) => setGender(e.target.value)}
-                                        required
-                                    >
-                                        <option value="">-- Select Gender --</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                    </select>
-								</div>
-								
-								<div class="col-md-6">
-									<label class="form-label" for="phone">Phone number: </label>
-									<input class="form-control" type="text"
-                                        id="phone"
-                                        value={phoneNumber}
-                                        onChange={(e) => setPhoneNumber(e.target.value)}
-                                        required/>
-								</div>
-								
-								<div class="col-md-6">
-									<label class="form-label" for="email">Email: </label>
-									<input
-                                        className="form-control"
-                                        type="email"
-                                        id="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
-                                    />
-								</div>
-								
-								<div class="col-md-6">
-									<label for="dob" class="form-label">Date of Birth: </label>
-									<input
-                                        className='form-control'
-                                        type="date"
-                                        id="dob"
-                                        value={dob}
-                                        onChange={(e) => setDob(e.target.value)}
-                                        required
-                                    />
-								</div>
-								
-								
-							</div> 
-						</div>
-					</div>
-					
-					<div class="col-xxl-4">
-						<div class="bg-secondary-soft px-4 py-5 rounded">
-							<div class="row g-3">
-                            <h4 class="my-4">Change Password</h4>
-								
-								<div class="col-md-6">
-									<label for="exampleInputPassword1" class="form-label">Old password *</label>
-									<input type="password" class="form-control" id="exampleInputPassword1"/>
-								</div>
-								
-								<div class="col-md-6">
-									<label for="exampleInputPassword2" class="form-label">New password *</label>
-									<input type="password" class="form-control" id="exampleInputPassword2"/>
-								</div>
-								
-								<div class="col-md-12">
-									<label for="exampleInputPassword3" class="form-label">Confirm Password *</label>
-									<input type="password" class="form-control" id="exampleInputPassword3"/>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div> 
-				
-				<div class="gap-3 d-md-flex justify-content-md-end text-center">
-					<button type="button" class="btn btn-danger btn-lg" onClick={handleCancel} >Cancel</button>
-					<button type="submit" class="btn btn-primary btn-lg">Save changes</button>
-				</div>
-			</form> 
-		</div>
-	</div>
-	</div>
-		
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="my-5">
+                        <h3>Edit Profile</h3>
+                        <hr />
+                    </div>
+
+                    <form onSubmit={handleFormSubmit} class="file-upload">
+                        <div class="row mb-5 gx-5">
+
+                            <div class="col-xxl-8 mb-5 mb-xxl-0">
+                                <div class="bg-secondary-soft px-4 py-5 rounded">
+                                    <div class="row g-3">
+                                        <h4 class="mb-4 mt-0">Contact detail</h4>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="fullname">Full name: </label>
+                                            <input
+                                                className='form-control'
+                                                type="text"
+                                                id="fullname"
+                                                value={fullname}
+                                                onChange={(e) => setFullname(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="gender">Gender: </label>
+                                            <select
+                                                class="form-control"
+                                                id="gender"
+                                                value={gender}
+                                                onChange={(e) => setGender(e.target.value)}
+                                                required
+                                            >
+                                                <option value="">-- Select Gender --</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="phone">Phone number: </label>
+                                            <input class="form-control" type="text"
+                                                id="phone"
+                                                value={phoneNumber}
+                                                onChange={(e) => setPhoneNumber(e.target.value)}
+                                                required />
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="email">Email: </label>
+                                            <input
+                                                className="form-control"
+                                                type="email"
+                                                id="email"
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="dob" class="form-label">Date of Birth: </label>
+                                            <input
+                                                className='form-control'
+                                                type="date"
+                                                id="dob"
+                                                value={dob}
+                                                onChange={(e) => setDob(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="gap-3 d-md-flex justify-content-md-end text-center">
+                            <button type="button" class="btn btn-danger btn-lg" onClick={handleCancel} >Cancel</button>
+                            <button type="submit" class="btn btn-primary btn-lg">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     );
 };
 
