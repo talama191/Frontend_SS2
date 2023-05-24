@@ -55,7 +55,7 @@ const Signup = () => {
         }, 2000)
     }
     return (
-        <Grid>
+        <Grid style={{ margin: '50px 0', width: '100%' }}>
             <Paper style={paperStyle}>
                 <Grid align='center'>
                     <Avatar style={avatarStyle}>
