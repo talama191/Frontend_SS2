@@ -1,6 +1,6 @@
 import ProductList from "./ProductList/ProductList";
 
-import 'rc-slider/assets/index.css';
+// import 'rc-slider/assets/index.css';
 import React, { memo, useContext, useEffect, useState } from "react";
 import PriceRange from "../Slider/PriceRange/PriceRange";
 import { useParams } from "react-router-dom";

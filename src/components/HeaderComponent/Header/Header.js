@@ -27,6 +27,7 @@ function Header({ isAuthenticated, setIsAuthenticated, onLogout }) {
                                         </button>
                                         <div class="dropdown-content">
                                             <Link to="/userdata">Edit profile</Link>
+                                            <Link to='/userdata/changepassword'>Change Password </Link>
                                             <a className="text-danger" onClick={() => {
                                                 LogOut();
                                                 setIsAuthenticated(false);

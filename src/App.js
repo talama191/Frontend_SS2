@@ -16,6 +16,7 @@ import UserData from './components/User-info/UserInfo';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import OrderList from './components/MainComponent/OrderPage/OrderList';
+import ChangePassword from './components/User-info/ChangePassword';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [p, setP] = useState('')
@@ -42,6 +43,8 @@ function App() {
         <Route path='/page' element={<h1>iafjdsf</h1>}></Route>
         <Route path="/shop" element={<ProductPage></ProductPage>} >
         </Route>
+
+        <Route path='/userdata/changepassword' element={<ChangePassword></ChangePassword>}></Route>
         <Route path="/userdata" element={<UserData></UserData>} >
         </Route>
         <Route path="/order_list" element={<OrderList></OrderList>}></Route>
