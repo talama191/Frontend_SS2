@@ -13,7 +13,7 @@ import { red } from "@material-ui/core/colors";
 import { color } from "@mui/system";
 import { ShowAlertToast, ShowSuccessToast } from "../../services/ToastService";
 const Signup = () => {
-    const paperStyle = { padding: 20, width: 500, margin: "0 auto" }
+    const paperStyle = { padding: 20, width: "100%", margin: "0 auto" }
     const headerStyle = { margin: 0 }
     const avatarStyle = { backgroundColor: '#00BCD4' }
     const marginTop = { marginTop: 10 }
@@ -55,8 +55,8 @@ const Signup = () => {
         }, 2000)
     }
     return (
-        <Grid style={{ margin: '50px 0', width: '100%' }}>
-            <Paper style={paperStyle}>
+        <Grid >
+            <Paper style={paperStyle}  >
                 <Grid align='center'>
                     <Avatar style={avatarStyle}>
                         <AddCircleOutlineOutlinedIcon />
@@ -66,33 +66,36 @@ const Signup = () => {
                 </Grid>
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                     {(props) => (
-                        <Form>
-                            <Field as={TextField} fullWidth name="username" label='Username' placeholder="Enter your username" helperText={<ErrorMessage name="username" />} />
-                            <Field as={TextField} fullWidth name='email' label='Email' placeholder="Enter your email" helperText={<ErrorMessage name="email" />} />
-                            <FormControl style={marginTop}>
-                                <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
-                                <Field as={RadioGroup}
-                                    aria-labelledby="demo-radio-buttons-group-label"
-                                    // defaultValue="female"
-                                    // name="radio-buttons-group"
-                                    name='gender'
-                                    style={{ display: 'initial' }}
-                                >
-                                    <FormControlLabel value="0" control={<Radio />} label="Female" />
-                                    <FormControlLabel value="1" control={<Radio />} label="Male" />
-                                </Field >
-                            </FormControl>
-                            <FormHelperText><ErrorMessage name='gender' /></FormHelperText>
-                            <Field as={TextField} name="phone_number" fullWidth label='Phone Number'
-                                placeholder="Enter your phone number" helperText={<ErrorMessage name="phone_number" />} />
-                            <Field as={TextField} name="password" fullWidth label='Password' type="password" placeholder="Enter your password "
-                                helperText={<ErrorMessage name="password" />} />
-                            <Field as={TextField} name="confirmPassword" fullWidth label='Confirm Password' type="password" placeholder="Confirm your password "
-                                helperText={<ErrorMessage name="confirmPassword" />} />
-                            <FormControlLabel control={<Field as={Checkbox} name="termsAndConditions" />} label="I accept the terms and conditions. " />
-                            <FormHelperText><ErrorMessage name="termsAndConditions" /></FormHelperText>
-                            <Button type='submit' variant="contained" disabled={props.isSubmitting} color='primary'>{props.isSubmitting ? "Loading" : "Sign up"}</Button>
-                        </Form>
+                        <div class=" col" >
+                            <Form class="mx-auto">
+                                <Field as={TextField} fullWidth name="username" label='Username' placeholder="Enter your username" helperText={<ErrorMessage name="username" />} />
+                                <Field as={TextField} fullWidth name='email' label='Email' placeholder="Enter your email" helperText={<ErrorMessage name="email" />} />
+                                <FormControl style={marginTop}>
+                                    <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+                                    <Field as={RadioGroup}
+                                        aria-labelledby="demo-radio-buttons-group-label"
+                                        // defaultValue="female"
+                                        // name="radio-buttons-group"
+                                        name='gender'
+                                        style={{ display: 'initial' }}
+                                    >
+                                        <FormControlLabel value="0" control={<Radio />} label="Female" />
+                                        <FormControlLabel value="1" control={<Radio />} label="Male" />
+                                    </Field >
+                                </FormControl>
+                                <FormHelperText><ErrorMessage name='gender' /></FormHelperText>
+                                <Field as={TextField} name="phone_number" fullWidth label='Phone Number'
+                                    placeholder="Enter your phone number" helperText={<ErrorMessage name="phone_number" />} />
+                                <Field as={TextField} name="password" fullWidth label='Password' type="password" placeholder="Enter your password "
+                                    helperText={<ErrorMessage name="password" />} />
+                                <Field as={TextField} name="confirmPassword" fullWidth label='Confirm Password' type="password" placeholder="Confirm your password "
+                                    helperText={<ErrorMessage name="confirmPassword" />} />
+                                <FormControlLabel control={<Field as={Checkbox} name="termsAndConditions" />} label="I accept the terms and conditions. " />
+                                <FormHelperText><ErrorMessage name="termsAndConditions" /></FormHelperText>
+                                <Button type='submit' variant="contained" disabled={props.isSubmitting} color='primary'>{props.isSubmitting ? "Loading" : "Sign up"}</Button>
+                            </Form>
+                        </div>
+
                     )}
                 </Formik>
             </Paper>

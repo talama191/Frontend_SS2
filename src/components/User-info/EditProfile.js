@@ -77,22 +77,22 @@ const EditProfile = () => {
 
         <div class="container n">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 ">
 
                     <div class="my-5">
-                        <h3>Edit Profile</h3>
+                        <h3 class="text-center">Edit Profile</h3>
                         <hr />
                     </div>
 
-                    <form onSubmit={handleFormSubmit} class="file-upload">
-                        <div class="row mb-5 gx-5">
+                    <form onSubmit={handleFormSubmit} class="file-upload mx-auto">
+                        <div class="row mb-5 gx-5 ">
 
-                            <div class="col-xxl-8 mb-5 mb-xxl-0">
-                                <div class="bg-secondary-soft px-4 py-5 rounded">
-                                    <div class="row g-3">
-                                        <h4 class="mb-4 mt-0">Contact detail</h4>
+                            <div class="col-12 mb-5 ">
+                                <div class="bg-secondary-soft px-4 py-5 rounded ">
+                                    <div class="row g-3 ">
+                                        <h4 class="mb-4 mt-0 text-center ">Contact detail</h4>
 
-                                        <div class="col-md-6">
+                                        <div>
                                             <label class="form-label" for="fullname">Full name: </label>
                                             <input
                                                 className='form-control'
@@ -104,7 +104,7 @@ const EditProfile = () => {
                                             />
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div >
                                             <label class="form-label" for="gender">Gender: </label>
                                             <select
                                                 class="form-control"
@@ -119,7 +119,7 @@ const EditProfile = () => {
                                             </select>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div>
                                             <label class="form-label" for="phone">Phone number: </label>
                                             <input class="form-control" type="text"
                                                 id="phone"
@@ -128,7 +128,7 @@ const EditProfile = () => {
                                                 required />
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div >
                                             <label class="form-label" for="email">Email: </label>
                                             <input
                                                 className="form-control"
@@ -140,7 +140,7 @@ const EditProfile = () => {
                                             />
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div >
                                             <label for="dob" class="form-label">Date of Birth: </label>
                                             <input
                                                 className='form-control'

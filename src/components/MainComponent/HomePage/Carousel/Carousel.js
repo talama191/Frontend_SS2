@@ -102,13 +102,12 @@ function Carousel() {
                                 backgroundImage: `url('https://images.pexels.com/photos/5926463/pexels-photo-5926463.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')`
                             }}
                         >
-                            <div class="card-body text-center pb-5">
+                            <div class=" text-center pb-5">
                                 <h5 class="pt-5 text-white">Amazing Promos</h5>
-                                <p class="text-white">
+                                <h5 class="text-white pl-2 pr-2 pt-3">
                                     We have discount for almost everyday, BUY it now to get free
                                     discount coupon up to 70%.
-                                </p>
-                                <a href="#" class="btn btn-outline-light"> View more </a>
+                                </h5>
                             </div>
                         </div>
                     </aside>

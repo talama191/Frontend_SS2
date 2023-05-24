@@ -12,7 +12,7 @@ import { ShowAlertToast, ShowSuccessToast } from "../../services/ToastService";
 import jwtDecode from "jwt-decode";
 const Login = ({ isAuthenticated, setIsAuthenticated }) => {
 
-    const paperStyle = { padding: 20, height: '73vh', width: "460px", margin: "0 auto" }
+    const paperStyle = { padding: 20, width: "100%", margin: "0 auto" }
     const avatarStyle = { backgroundColor: '#00BCD4' }
     const btstyle = { margin: '8px 0' }
     const initialValues = {
@@ -53,7 +53,7 @@ const Login = ({ isAuthenticated, setIsAuthenticated }) => {
 
     }
     return (
-        <Grid style={{ margin: '50px 0', width: '100%' }}>
+        <Grid style={{ margin: '50px 0', width: '100%' }} >
             <Paper style={paperStyle}>
                 <Grid align="center">
                     <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
@@ -61,39 +61,46 @@ const Login = ({ isAuthenticated, setIsAuthenticated }) => {
                 </Grid>
                 <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                     {(props) => (
-                        <Form>
+                        <div class="col ">
+                            <Form class="mx-auto">
 
-                            <Field as={TextField} label='Username' name="username" placeholder="Enter username" fullWidth required
-                                helperText={<ErrorMessage name="username" />} />
-                            <Field as={TextField} label='Password' name="password" placeholder="Enter password" type='password' fullWidth required
-                                helperText={<ErrorMessage name="password" />} />
-                            <Field as={FromControlLabel}
-                                name="remember"
-                                control={
-                                    <Checkbox
+                                <Field as={TextField} label='Username' name="username" placeholder="Enter username" fullWidth required
+                                    helperText={<ErrorMessage name="username" />} />
+                                <Field as={TextField} label='Password' name="password" placeholder="Enter password" type='password' fullWidth required
+                                    helperText={<ErrorMessage name="password" />} />
+                                <Field as={FromControlLabel}
+                                    name="remember"
+                                    control={
+                                        <Checkbox
 
-                                        color='primary'
-                                    />
-                                }
-                                label="Remember me"
-                            />
-                            <Button type='submit' color="primary"
-                                variant='contained' style={btstyle} fullWidth
-                                disabled={props.isSubmitting}>{props.isSubmitting ? "Loading" : "Sign in"}</Button>
-                        </Form>
+                                            color='primary'
+                                        />
+                                    }
+                                    label="Remember me"
+                                />
+                                <Button type='submit' color="primary"
+                                    variant='contained' style={btstyle} fullWidth
+                                    disabled={props.isSubmitting}>{props.isSubmitting ? "Loading" : "Sign in"}</Button>
+                            </Form>
+                        </div>
+
                     )}
                 </Formik>
-                <Typography>
-                    <Link href="#">
-                        Forgot password ?
-                    </Link>
-                </Typography>
+                <div class="col-lg-12 text-center">
+                        <Typography>
+                            <Link href="#">
+                                Forgot password ?
+                            </Link>
+                        </Typography>
 
-                <Typography> Do you have an account ?
-                    <Link to="/signup">
-                        Sign up ?
-                    </Link>
-                </Typography>
+                        <Typography> Do you have an account ?
+                            <Link to="/signup">
+                                Sign up ?
+                            </Link>
+                        </Typography>
+                </div>
+
+
             </Paper>
         </Grid>
 
