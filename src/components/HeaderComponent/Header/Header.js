@@ -11,7 +11,7 @@ import { ShowAlertToast } from "../../../services/ToastService";
 function Header({ isAuthenticated, setIsAuthenticated, onLogout }) {
     return (
         <header class="section-header">
-            <section class="header-main">
+            <section class="header-main" >
                 <div class="container">
                     <div class="row gy-3 align-items-center">
 

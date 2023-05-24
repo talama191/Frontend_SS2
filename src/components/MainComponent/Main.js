@@ -8,7 +8,7 @@ import Signup from "../signup/signup";
 import ProductDetailPage from "./ProductDetailPage/ProductDetailPage";
 function Main() {
     return (
-        <div>
+        <div className="container vw-100">
         </div>
     );
 }

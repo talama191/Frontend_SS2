@@ -34,11 +34,11 @@ const Login = ({ isAuthenticated, setIsAuthenticated }) => {
         if (data.status_code === 200) {
             console.log(data);
             const token = data.data.accessToken;
-            var tokenDecoded=jwtDecode(token);
+            var tokenDecoded = jwtDecode(token);
             localStorage.setItem('token', token);
             localStorage.setItem('username', values.username)
             localStorage.setItem('isAuthenticated', "true")
-            localStorage.setItem('user_id',tokenDecoded.id);
+            localStorage.setItem('user_id', tokenDecoded.id);
             setIsAuthenticated(true);
             navigate('/');
             setTimeout(() => {
@@ -50,10 +50,10 @@ const Login = ({ isAuthenticated, setIsAuthenticated }) => {
             ShowAlertToast("Wrong username or password");
         }
 
-       
+
     }
     return (
-        <Grid >
+        <Grid style={{ margin: '50px 0', width: '100%' }}>
             <Paper style={paperStyle}>
                 <Grid align="center">
                     <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
